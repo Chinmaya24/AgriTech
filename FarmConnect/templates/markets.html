@@ -1,0 +1,104 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <div class="row align-items-center mb-3 g-2">
+    <div class="col-auto"><h2 class="m-0"><i class="bi bi-graph-up-arrow me-2"></i>Market Demand</h2></div>
+    <div class="col-12 col-md">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input id="marketSearch" type="text" class="form-control" placeholder="Search by market, location, or produce...">
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Market Name</th>
+              <th scope="col">Location</th>
+              <th scope="col">Produce Needed</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Contact</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="marketsBody">
+            {% for m in markets %}
+            <tr>
+              <td>{{ m.market_name }}</td>
+              <td>{{ m.location }}</td>
+              <td>{{ m.produce }}</td>
+              <td>{{ m.quantity }}</td>
+              <td data-contact="{{ m.contact_full }}">{{ m.contact_primary }}</td>
+              <td class="text-end">
+                <button class="btn btn-success btn-sm connect-btn" data-bs-toggle="modal" data-bs-target="#contactModal">
+                  <i class="bi bi-link-45deg me-1"></i>Connect
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel"><i class="bi bi-telephone-outbound me-2"></i>Contact Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-1 text-muted">Reach out to this market using:</p>
+          <div id="contactDetails" class="fs-6"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.connect-btn');
+      const modalBody = document.getElementById('contactDetails');
+      const rows = document.querySelectorAll('table tbody tr');
+      const search = document.getElementById('marketSearch');
+
+      rows.forEach(function(row) {
+        row.addEventListener('click', function(e) {
+          const contactCell = row.querySelector('[data-contact]');
+          if (!contactCell) return;
+          const contactInfo = contactCell.getAttribute('data-contact');
+          if ((e.target && e.target.closest('.connect-btn')) || e.target === row) {
+            modalBody.textContent = contactInfo;
+          }
+        });
+      });
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          const tr = e.target.closest('tr');
+          const contactCell = tr.querySelector('[data-contact]');
+          const contactInfo = contactCell.getAttribute('data-contact');
+          modalBody.textContent = contactInfo;
+        });
+      });
+
+      if (search) {
+        search.addEventListener('input', function() {
+          const q = search.value.toLowerCase();
+          document.querySelectorAll('#marketsBody tr').forEach(function(tr) {
+            const text = tr.textContent.toLowerCase();
+            tr.style.display = text.includes(q) ? '' : 'none';
+          });
+        });
+      }
+    });
+  </script>
+{% endblock %}
