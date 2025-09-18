@@ -1,0 +1,334 @@
+
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('assets/bg-farm.jpg') no-repeat center center fixed, linear-gradient(180deg, #f7f6ee 70%, #e0c68c 100%);
+  background-size: cover;
+  color: #222;
+  min-height: 100vh;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #388e3c 60%, #fbc02d 100%);
+  color: #fff;
+  padding: 1rem 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(56,142,60,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: fadeInDown 1s;
+}
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-shadow: 1px 1px 4px #2e7031;
+}
+.navbar-menu {
+  display: flex;
+  gap: 2vw;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 0.2em 0.7em;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-link:hover {
+  background: #fffde7;
+  color: #388e3c;
+}
+.navbar-lang {
+  display: flex;
+  align-items: center;
+}
+#lang-select {
+  font-size: 1.1em;
+  padding: 0.3em 0.7em;
+  border-radius: 6px;
+  border: 1px solid #c8e6c9;
+  background: #fffde7;
+  color: #388e3c;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  min-height: 80vh;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #388e3c 80%, #a1887f 100%);
+  color: #fff;
+  width: 220px;
+  min-width: 180px;
+  padding: 2rem 0.5rem 1rem 0.5rem;
+  box-shadow: 2px 0 8px rgba(56,142,60,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInLeft 1s;
+}
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+.sidebar-btn {
+  width: 100%;
+  background: #fffde7;
+  color: #388e3c;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8em 0.5em;
+  margin-bottom: 1em;
+  font-size: 1.15em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(56,142,60,0.08);
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+}
+.sidebar-btn:hover {
+  background: #fbc02d;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 1.2s;
+}
+.page-section {
+  background: rgba(255,255,255,0.95);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(56,142,60,0.10), 0 1.5px 6px rgba(251,192,45,0.08);
+  padding: 2rem 1rem;
+  margin-bottom: 1.5rem;
+  min-height: 300px;
+  animation: fadeInUp 1.2s;
+}
+h2, h3 {
+  color: #388e3c;
+  font-size: 1.5em;
+  margin-bottom: 1rem;
+}
+label, input, select, button {
+  font-size: 1.2em;
+}
+form {
+  margin-bottom: 1rem;
+}
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+input, select {
+  padding: 0.5em;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  background: #fffde7;
+  color: #222;
+  flex: 1;
+}
+input:focus, select:focus {
+  outline: 2px solid #388e3c;
+}
+button {
+  background: linear-gradient(90deg, #388e3c 70%, #fbc02d 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(56,142,60,0.08);
+  transition: background 0.2s, transform 0.2s;
+}
+button:hover {
+  background: linear-gradient(90deg, #2e7031 70%, #fbc02d 100%);
+  transform: scale(1.05);
+}
+button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #fffde7;
+  color: #388e3c;
+  border: 1px solid #c8e6c9;
+  border-radius: 6px;
+  padding: 0.3em 0.7em;
+  font-size: 1em;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+  z-index: 10;
+}
+.output-card {
+  background: #e8f5e9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(56,142,60,0.08);
+  padding: 1em;
+  margin-top: 1em;
+  font-size: 1.2em;
+  color: #222;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5em;
+}
+th, td {
+  padding: 0.7em 0.3em;
+  text-align: left;
+  border-bottom: 1px solid #c8e6c9;
+  font-size: 1.1em;
+}
+th {
+  background: #fbc02d;
+  color: #388e3c;
+  font-weight: bold;
+}
+.claimed-row {
+  background: #fffde7;
+  color: #388e3c;
+}
+
+/* Farmer Success Stories Carousel */
+.carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+.carousel-card {
+  background: #fffde7;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(251,192,45,0.08);
+  min-width: 220px;
+  max-width: 260px;
+  padding: 1rem;
+  text-align: center;
+  animation: fadeInUp 1.2s;
+}
+.carousel-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.7em;
+  box-shadow: 0 2px 8px #fbc02d44;
+}
+.carousel-quote {
+  font-size: 1.1em;
+  color: #388e3c;
+  margin-bottom: 0.5em;
+}
+
+/* Weather Widget */
+.weather-widget {
+  background: #e0c68c;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #a1887f44;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+  animation: fadeIn 1.2s;
+}
+.weather-icon {
+  width: 48px;
+  height: 48px;
+}
+
+footer {
+  background: linear-gradient(90deg, #388e3c 60%, #fbc02d 100%);
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 1.1em;
+  margin-top: 2rem;
+  box-shadow: 0 -2px 8px rgba(56,142,60,0.08);
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100vw;
+    min-width: unset;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    position: sticky;
+    top: 60px;
+    z-index: 99;
+  }
+  .sidebar-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100vw;
+    justify-content: center;
+  }
+  .sidebar-btn {
+    margin-bottom: 0;
+    margin-right: 0.5em;
+    min-width: 120px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 700px) {
+  .main-content {
+    padding: 1rem 0.5rem;
+  }
+  .page-section {
+    padding: 1rem 0.5rem;
+    min-height: 200px;
+  }
+  .navbar-logo {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.1em;
+  }
+  label, input, select, button {
+    font-size: 1em;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

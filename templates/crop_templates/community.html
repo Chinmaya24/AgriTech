@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌾 Farmer-to-Farmer Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            margin: 0; padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            animation: fadeInDown 1s;
+        }
+        .new-post-btn {
+            display: inline-block;
+            background: linear-gradient(90deg,#43a047,#66bb6a);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: 0.3s;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+        }
+        .new-post-btn:hover {
+            background: linear-gradient(90deg,#388e3c,#43a047);
+            transform: scale(1.05);
+        }
+        .post-list {
+            list-style: none;
+            padding: 0;
+        }
+        .post-card {
+            background: #f1f8e9;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(67,160,71,0.07);
+            margin-bottom: 18px;
+            padding: 22px 28px;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.2s;
+            animation: fadeInUp 0.7s;
+        }
+        .post-card:hover {
+            box-shadow: 0 8px 24px rgba(67,160,71,0.13);
+        }
+        .post-icon {
+            font-size: 2.2rem;
+            margin-right: 18px;
+        }
+        .post-info {
+            flex: 1;
+        }
+        .post-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #388e3c;
+            margin-bottom: 6px;
+        }
+        .post-disease {
+            font-size: 1rem;
+            color: #2e7d32;
+            background: #dcedc8;
+            padding: 4px 12px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .view-link {
+            color: #43a047;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 18px;
+            transition: color 0.2s;
+        }
+        .view-link:hover {
+            color: #1b5e20;
+            text-decoration: underline;
+        }
+        .empty-msg {
+            text-align: center;
+            color: #888;
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2e7d32;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate__animated animate__fadeIn">
+        <h2>🌾 Farmer-to-Farmer Community</h2>
+        <div style="text-align:center;">
+            <a href="{{ url_for('new_post') }}" class="new-post-btn animate__animated animate__pulse animate__infinite">+ Create New Post</a>
+        </div>
+        {% if posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+            <li>
+                <div class="post-card">
+                    <span class="post-icon">📝</span>
+                    <div class="post-info">
+                        <div class="post-title">{{ post.title }}</div>
+                        <div class="post-disease">{{ post.disease }}</div>
+                    </div>
+                    <a href="{{ url_for('post_detail', post_id=post.id) }}" class="view-link">View & Comment →</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="empty-msg animate__animated animate__fadeInUp">
+            No posts yet. Be the first to help the community!
+        </div>
+        {% endif %}
+        <div style="text-align:center;">
+            <a href="{{ url_for('ai_disease') }}" class="back-link">← Back to Crop Detection</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿{% extends "farmconnect_templates/base.html" %}
+{% block content %}
+  <section class="p-5 p-md-5 mb-5 rounded-3 text-white hero-banner" style="background: linear-gradient(135deg, rgba(25,135,84,.9), rgba(253,126,20,.9)), url('https://images.unsplash.com/photo-1500937386664-56bd04f6f998?w=1200&q=80&auto=format&fit=crop') center/cover no-repeat;">
+    <div class="container py-4">
+      <h1 class="display-5 fw-bold">Connecting Farmers, Markets, and Communities — Reducing Food Waste Together.</h1>
+      <p class="lead mt-3">A platform to share surplus produce, match market demand, and partner with NGOs.</p>
+      <div class="d-flex gap-3 flex-wrap mt-4">
+        <a href="{{ url_for('upload') }}" class="btn btn-light text-success fw-semibold"><i class="bi bi-upload me-1"></i>Upload Produce</a>
+        <a href="{{ url_for('markets') }}" class="btn btn-outline-light fw-semibold"><i class="bi bi-graph-up-arrow me-1"></i>Market Demand</a>
+        <a href="{{ url_for('ngos') }}" class="btn btn-outline-light fw-semibold"><i class="bi bi-people-heart me-1"></i>Partner NGOs</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm feature-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2"><i class="bi bi-basket2-fill text-success me-2 fs-4"></i><h5 class="m-0">Reduce Waste</h5></div>
+          <p class="text-muted">Upload surplus produce and route it to where it's needed most.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm feature-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2"><i class="bi bi-shop text-success me-2 fs-4"></i><h5 class="m-0">Market Linkages</h5></div>
+          <p class="text-muted">View live demand and connect to trusted buyers quickly.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm feature-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2"><i class="bi bi-people text-success me-2 fs-4"></i><h5 class="m-0">NGO Partners</h5></div>
+          <p class="text-muted">Team up with NGOs to improve food security and community resilience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

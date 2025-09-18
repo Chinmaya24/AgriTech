@@ -1,0 +1,235 @@
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, abort, g
+import os
+import sqlite3
+from PIL import Image
+import numpy as np
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import img_to_array
+# If hydro_utils is available, import it
+try:
+    from hydro.hydro_utils import recommend_system, nutrient_recipe
+except ImportError:
+    recommend_system = None
+    nutrient_recipe = None
+
+app = Flask(__name__, template_folder='templates', static_folder='static')
+
+# --- AI Crop Disease (from crop1/crop/app.py) ---
+DATABASE = os.path.join(os.path.dirname(__file__), 'crop1', 'crop', 'community.db')
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'crop1', 'crop', 'uploads')
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'crop1', 'crop', 'model', 'plant_disease_model.h5')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+model = load_model(MODEL_PATH, compile=False)
+class_names = ['Tomato-Bacterial_spot', 'Potato-Barly blight', 'Corn-Common_rust']
+remedies = {
+    'Tomato-Bacterial_spot': {
+        "Treatment": ["Remove infected leaves.", "Spray copper-based fungicide every 7-10 days.", "Neem oil can be used as an organic alternative."],
+        "Prevention": ["Use disease-free seeds.", "Maintain proper spacing between plants.", "Rotate crops yearly."],
+        "Fertilizer Advice": ["Apply Nitrogen 20kg/acre + Potassium 10kg/acre.", "Neem-based organic fertilizer optional."],
+        "Watering Tips": ["Avoid overhead irrigation.", "Water early morning."],
+        "Harvest Advice": ["Harvest promptly to avoid contact with infected foliage.", "Discard severely infected fruits."],
+        "Extra Tips": ["Monitor plants regularly.", "Maintain good ventilation in greenhouses."]
+    },
+    'Potato-Barly blight': {
+        "Treatment": ["Apply fungicides like mancozeb or chlorothalonil.", "Remove severely affected plants."],
+        "Prevention": ["Plant resistant varieties.", "Practice crop rotation.", "Space plants adequately."],
+        "Fertilizer Advice": ["Use balanced NPK fertilizer: N15:P15:K15.", "Compost can improve soil health."],
+        "Watering Tips": ["Irrigate in the morning.", "Avoid waterlogging."],
+        "Harvest Advice": ["Harvest when foliage is dry.", "Store in cool, dry conditions."],
+        "Extra Tips": ["Destroy volunteer plants.", "Monitor brown lesions on leaves."]
+    },
+    'Corn-Common_rust': {
+        "Treatment": ["Remove heavily infected plants.", "Apply azoxystrobin fungicide.", "Sulfur sprays for organic control."],
+        "Prevention": ["Plant resistant hybrids.", "Rotate crops.", "Maintain field sanitation."],
+        "Fertilizer Advice": ["Apply NPK 16:16:16 as basal dose.", "Top-dress with Nitrogen mid-growth."],
+        "Watering Tips": ["Avoid late evening irrigation.", "Reduce leaf wetness."],
+        "Harvest Advice": ["Harvest when kernels are fully mature.", "Remove debris post-harvest."],
+        "Extra Tips": ["Inspect lower leaves regularly.", "Improve airflow between plants.", "Avoid overcrowding."]
+    }
+}
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+def init_db():
+    with app.app_context():
+        db = get_db()
+        db.executescript('''
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            disease TEXT NOT NULL,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_id INTEGER NOT NULL,
+            content TEXT NOT NULL,
+            FOREIGN KEY(post_id) REFERENCES posts(id)
+        );
+        ''')
+        db.commit()
+init_db()
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+@app.route("/ai-disease", methods=["GET", "POST"])
+def ai_disease():
+    disease = None
+    remedy_info = None
+    filename = None
+    if request.method == "POST":
+        file = request.files.get("file")
+        if file and file.filename != "":
+            filename = file.filename
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(filepath)
+            img = Image.open(filepath).convert('RGB').resize((256, 256))
+            img_array = img_to_array(img) / 255.0
+            img_array = np.expand_dims(img_array, axis=0)
+            Y_pred = model.predict(img_array)
+            predicted_index = np.argmax(Y_pred)
+            confidence = np.max(Y_pred)
+            if confidence < 0.6:
+                disease = "Unable to detect"
+                remedy_info = {
+                    "Treatment": "Please upload a clear image.",
+                    "Prevention": "Ensure proper lighting and focus.",
+                    "Tips": "Make sure the leaf is centered and healthy."
+                }
+            else:
+                disease = class_names[predicted_index]
+                remedy_info = remedies[disease]
+    return render_template("crop_templates/index.html", 
+                       disease=disease, 
+                       remedy=remedy_info, 
+                       result=bool(disease), 
+                       filename=filename)
+@app.route('/community')
+def community():
+    db = get_db()
+    posts = db.execute('SELECT * FROM posts ORDER BY id DESC').fetchall()
+    return render_template('crop_templates/community.html', posts=posts)
+
+@app.route('/new_post', methods=['GET', 'POST'])
+def new_post():
+    if request.method == 'POST':
+        disease = request.form['disease']
+        title = request.form['title']
+        content = request.form['content']
+        db = get_db()
+        db.execute('INSERT INTO posts (disease, title, content) VALUES (?, ?, ?)', (disease, title, content))
+        db.commit()
+        return redirect(url_for('community'))
+    return render_template('new_post.html')
+
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+def post_detail(post_id):
+    db = get_db()
+    post = db.execute('SELECT * FROM posts WHERE id = ?', (post_id,)).fetchone()
+    if not post:
+        return "Post not found", 404
+    if request.method == 'POST':
+        comment = request.form['comment']
+        if comment:
+            db.execute('INSERT INTO comments (post_id, content) VALUES (?, ?)', (post_id, comment))
+            db.commit()
+    comments = db.execute('SELECT content FROM comments WHERE post_id = ? ORDER BY id ASC', (post_id,)).fetchall()
+    return render_template('post_detail.html', post=post, comments=comments)
+
+# --- Food Security/NGO/Markets (from FarmConnect/app.py) ---
+submissions = []
+NGO_DATA = { ... } # Use the full dict from FarmConnect/app.py
+MARKETS_DATA = [ ... ] # Use the full list from FarmConnect/app.py
+
+@app.route("/food-security")
+def food_security_home():
+    return render_template("farmconnect_templates/index.html")
+
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    success_message = None
+    if request.method == "POST":
+        farmer_name = request.form.get("farmer_name", "").strip()
+        contact = request.form.get("contact", "").strip()
+        produce_name = request.form.get("produce_name", "").strip()
+        quantity_value = request.form.get("quantity_value", "").strip()
+        quantity_unit = request.form.get("quantity_unit", "kg").strip()
+        location = request.form.get("location", "").strip()
+        if farmer_name and contact and produce_name and quantity_value and location:
+            submissions.append({
+                "farmer_name": farmer_name,
+                "contact": contact,
+                "produce_name": produce_name,
+                "quantity": f"{quantity_value} {quantity_unit}",
+                "location": location,
+            })
+            success_message = "Submission received successfully."
+    return render_template("FarmConnect/upload.html", success_message=success_message, submissions=submissions)
+
+@app.route("/markets")
+def markets():
+    return render_template("FarmConnect/markets.html", markets=MARKETS_DATA)
+
+@app.route("/ngos")
+def ngos():
+    ngos_list = list(NGO_DATA.values())
+    return render_template("FarmConnect/ngos.html", ngos=ngos_list)
+
+@app.route("/ngos/<slug>")
+def ngo_detail(slug: str):
+    ngo = NGO_DATA.get(slug)
+    if not ngo:
+        abort(404)
+    return render_template("FarmConnect/ngo_detail.html", ngo=ngo)
+
+# --- Hydroponics (from hydro/app.py) ---
+@app.route("/hydro")
+def hydro_home():
+    return render_template("hydro_templates/hydro_info.html", title="Hydroponics Info")
+
+@app.route("/hydro/recommend", methods=["GET", "POST"])
+def hydro_recommend():
+    result = None
+    if request.method == "POST" and recommend_system:
+        crop = request.form.get("crop", "").strip()
+        space = request.form.get("space", "").strip()
+        budget = request.form.get("budget", "").strip()
+        lighting = request.form.get("lighting", "").strip()
+        result = recommend_system(crop, space, budget, lighting)
+    return render_template("hydro_templates/hydro_recommend.html", title="Recommendation Tool", result=result)
+
+@app.route("/hydro/nutrients", methods=["GET", "POST"])
+def hydro_nutrients():
+    mix = None
+    if request.method == "POST" and nutrient_recipe:
+        crop = request.form.get("crop", "").strip()
+        mix = nutrient_recipe(crop)
+    return render_template("hydro_templates/hydro_nutrients.html", title="Nutrient Mix", mix=mix)
+
+@app.route("/hydro/setup")
+def hydro_setup_page():
+    return render_template("hydro_templates/hydro_setup.html", title="Hydroponics Setup & Materials")
+
+@app.route("/gobar-gas")
+def gobar_gas():
+    return render_template("gobar_index.html")
+
+@app.route("/")
+def home():
+    return render_template("main-home.html")
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

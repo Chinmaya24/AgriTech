@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AgriAI+ Gobar Gas Platform</title>
+	<link rel="stylesheet" href="/static/gobar_styles.css">
+</head>
+<body>
+	<!-- Top Navbar -->
+	<header class="navbar">
+		<div class="navbar-logo">AgriAI+</div>
+		<nav class="navbar-menu">
+			<a href="#" id="nav-home" class="nav-link">Home</a>
+			<a href="#" id="nav-about" class="nav-link">About Us</a>
+			<a href="#" id="nav-contact" class="nav-link">Contact Us</a>
+		</nav>
+		<div class="navbar-lang">
+			<label for="lang-select" style="font-weight:bold;">🌐</label>
+			<select id="lang-select" aria-label="Select language" title="Select your language">
+				<option value="en">English</option>
+				<option value="hi">हिन्दी</option>
+				<option value="kn">ಕನ್ನಡ</option>
+				<option value="ta">தமிழ்</option>
+				<option value="bn">বাংলা</option>
+			</select>
+		</div>
+	</header>
+
+	<div class="container">
+		<!-- Left Sidebar -->
+		<aside class="sidebar">
+			<ul class="sidebar-menu">
+				<li><button class="sidebar-btn" id="menu-dashboard">Dashboard</button></li>
+				<li><button class="sidebar-btn" id="menu-calculator">Gobar Gas Calculator</button></li>
+				<li><button class="sidebar-btn" id="menu-biogas-savings">Biogas Savings Calculator</button></li>
+				<li><button class="sidebar-btn" id="menu-c2f">C2F Connect</button></li>
+				<li><button class="sidebar-btn" id="menu-wetwaste">Wet Waste Portal</button></li>
+				<li><button class="sidebar-btn" id="menu-crop">Crop Guidance</button></li>
+				<li><button class="sidebar-btn" id="menu-knowledge">Knowledge Hub</button></li>
+			</ul>
+		</aside>
+
+		<!-- Main Content -->
+		<main class="main-content">
+			<section id="page-home" class="page-section">
+				<!-- Home Page Content -->
+			</section>
+			<section id="page-dashboard" class="page-section" style="display:none">
+				<!-- Dashboard Content -->
+			</section>
+			<section id="page-calculator" class="page-section" style="display:none">
+				<!-- Gobar Gas Calculator Content -->
+			</section>
+			<section id="page-biogas-savings" class="page-section" style="display:none">
+				<!-- Biogas Savings Calculator Content -->
+			</section>
+			<section id="page-c2f" class="page-section" style="display:none">
+				<!-- C2F Marketplace Content -->
+				<div style="margin-bottom:1em;">
+				  <input type="text" id="c2f-filter" placeholder="Filter by type (e.g. Compost, Wet Waste)" style="width:220px;padding:0.5em;">
+				</div>
+			</section>
+			<section id="page-wetwaste" class="page-section" style="display:none">
+				<!-- Wet Waste Portal Content -->
+			</section>
+			<section id="page-crop" class="page-section" style="display:none">
+				<!-- Crop Guidance Content -->
+			</section>
+			<section id="page-knowledge" class="page-section" style="display:none">
+				<!-- Knowledge Hub Content -->
+			</section>
+			<section id="page-about" class="page-section" style="display:none">
+				<!-- About Us Content -->
+			</section>
+			<section id="page-contact" class="page-section" style="display:none">
+				<!-- Contact Us Content -->
+			</section>
+		</main>
+	</div>
+
+	<footer>
+		<p style="text-align:center;font-size:1.1em;">&copy; 2025 AgriAI+ Gobar Gas Platform</p>
+	</footer>
+		<script src="/static/gobar_app.js"></script>
+</body>
+</html>

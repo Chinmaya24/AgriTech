@@ -1,0 +1,15 @@
+﻿/* Theme: green (#198754) + orange (#fd7e14) */
+body { background-color: #f8fff8; }
+.navbar { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+/* Cards hover */
+.feature-card, .ngo-card, .card.shadow-sm { transition: transform .15s ease, box-shadow .15s ease; }
+.feature-card:hover, .ngo-card:hover, .card.shadow-sm:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12); }
+
+/* Buttons */
+.btn-success { background-color: #198754; border-color: #198754; }
+.btn-success:hover { background-color: #157347; border-color: #146c43; }
+.btn-outline-success:hover { background-color: #198754; color: #fff; }
+
+/* Hero banner tweaks */
+.hero-banner { border-radius: .75rem; box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12); }

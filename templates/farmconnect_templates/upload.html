@@ -1,0 +1,135 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="m-0"><i class="bi bi-basket2-fill me-2"></i>Upload Surplus Produce</h2>
+  </div>
+
+  {% if success_message %}
+  <div class="alert alert-success d-flex align-items-center" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <div>{{ success_message }}</div>
+  </div>
+  {% endif %}
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <i class="bi bi-upload me-2"></i>Submit Your Surplus
+        </div>
+        <div class="card-body">
+          <form method="POST" novalidate id="uploadForm">
+            <div class="mb-3">
+              <label for="farmer_name" class="form-label">Name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="farmer_name" name="farmer_name" placeholder="Your name" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="contact" class="form-label">Contact</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                <input type="text" class="form-control" id="contact" name="contact" placeholder="Phone or email" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="produce_name" class="form-label">Produce name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-egg-fried"></i></span>
+                <input type="text" class="form-control" id="produce_name" name="produce_name" placeholder="e.g., Tomatoes" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Quantity</label>
+              <div class="row g-2">
+                <div class="col-8">
+                  <input type="number" class="form-control" id="quantity_value" name="quantity_value" placeholder="100" min="0" step="any" required>
+                </div>
+                <div class="col-4">
+                  <select class="form-select" id="quantity_unit" name="quantity_unit">
+                    <option value="kg" selected>kg</option>
+                    <option value="ton">ton</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Village/City" required>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success"><i class="bi bi-send me-1"></i>Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <i class="bi bi-list-check me-2"></i>Recent Submissions
+        </div>
+        <div class="card-body">
+          {% if submissions and submissions|length > 0 %}
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Contact</th>
+                  <th scope="col">Produce</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for s in submissions|reverse %}
+                <tr>
+                  <td>{{ s.farmer_name }}</td>
+                  <td>{{ s.contact }}</td>
+                  <td>{{ s.produce_name }}</td>
+                  <td>{{ s.quantity }}</td>
+                  <td>{{ s.location }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="text-muted">No submissions yet. Be the first to submit.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('uploadForm');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        let valid = true;
+        ['farmer_name','contact','produce_name','quantity_value','location'].forEach(function(id){
+          const el = document.getElementById(id);
+          if (!el || !el.value.trim()) { valid = false; el.classList.add('is-invalid'); }
+          else { el.classList.remove('is-invalid'); }
+        });
+        const qty = document.getElementById('quantity_value');
+        if (qty && Number(qty.value) < 0) { valid = false; qty.classList.add('is-invalid'); }
+        if (!valid) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    });
+  </script>
+{% endblock %}
