@@ -5,6 +5,8 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
+from dotenv import load_dotenv
+
 # If hydro_utils is available, import it
 try:
     from hydro.hydro_utils import recommend_system, nutrient_recipe
@@ -13,6 +15,7 @@ except ImportError:
     nutrient_recipe = None
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
+load_dotenv()
 
 # --- AI Crop Disease (from crop1/crop/app.py) ---
 DATABASE = os.path.join(os.path.dirname(__file__), 'crop1', 'crop', 'community.db')
@@ -230,6 +233,65 @@ def gobar_gas():
 @app.route("/")
 def home():
     return render_template("main-home.html")
+
+@app.route("/weather", methods=["GET", "POST"])
+def weather_home():
+    city = None
+    error = None
+    weather_data = None
+    if request.method == "POST":
+        city = request.form.get("city", "").strip()
+        if not city:
+            error = "Please enter a city name."
+        else:
+            import requests
+            import os
+            api_key = os.environ.get("WEATHERAPI_KEY")
+            if not api_key:
+                error = "Weather API key not set."
+            else:
+                url = f"https://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
+                try:
+                    resp = requests.get(url)
+                    resp.raise_for_status()
+                    weather_data = resp.json()
+                except Exception as e:
+                    error = f"Could not fetch weather: {e}"
+    return render_template("weather_templates/index.html", city=city, error=error, weather=weather_data)
+
+@app.route("/results", methods=["POST"])
+def weather_results():
+    location = request.form["location"]
+    forecast = []
+    diseases = []
+    precautions = []
+    error = None
+
+    # Fetch weather data from WeatherAPI
+    import requests, os
+    api_key = os.environ.get("WEATHERAPI_KEY")
+    if not api_key:
+        error = "Weather API key not set."
+    else:
+        url = f"https://api.weatherapi.com/v1/forecast.json?key={api_key}&q={location}&days=3"
+        try:
+            resp = requests.get(url)
+            resp.raise_for_status()
+            data = resp.json()
+            # Example: extract 3-day forecast
+            forecast = data.get("forecast", {}).get("forecastday", [])
+            # TODO: Add your disease risk analysis logic here
+            # diseases = ...
+            # precautions = ...
+        except Exception as e:
+            error = f"Could not fetch weather: {e}"
+
+    return render_template("weather_templates/results.html",
+                          location=location,
+                          forecast=forecast,
+                          diseases=diseases,
+                          precautions=precautions,
+                          error=error)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

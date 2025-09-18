@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Crop Disease Forecaster{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="bi bi-shield-check"></i> Crop Disease Forecaster
+                </h1>
+                <p class="lead mb-4">
+                    Predict crop diseases based on weather conditions and get expert recommendations 
+                    for healthy farming practices.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Form Section -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">
+                        <i class="bi bi-geo-alt"></i> Check Disease Risk
+                    </h3>
+                    <p class="text-muted text-center mb-4">
+                        Enter your location to get a 3-day weather forecast and disease risk analysis
+                    </p>
+                    
+                    <form method="POST" action="{{ url_for('check_risk') }}">
+                        <div class="mb-4">
+                            <label for="location" class="form-label fw-semibold">
+                                <i class="bi bi-geo-alt-fill"></i> Location
+                            </label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="location" 
+                                   name="location" 
+                                   placeholder="Enter city or village name (e.g., Mumbai, Delhi, Bangalore)"
+                                   required>
+                            <div class="form-text">
+                                Enter the name of your city or village for accurate weather data
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-search"></i> Check Risk
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-5">How It Works</h2>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-cloud-sun weather-icon text-primary"></i>
+                    </div>
+                    <h5 class="card-title">Weather Analysis</h5>
+                    <p class="card-text text-muted">
+                        Get 3-day weather forecast including temperature, humidity, and rainfall data
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-exclamation-triangle weather-icon text-warning"></i>
+                    </div>
+                    <h5 class="card-title">Disease Prediction</h5>
+                    <p class="card-text text-muted">
+                        Advanced algorithms analyze weather conditions to predict potential crop diseases
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-lightbulb weather-icon text-success"></i>
+                    </div>
+                    <h5 class="card-title">Expert Advice</h5>
+                    <p class="card-text text-muted">
+                        Get eco-friendly remedies and preventive measures for healthy crop management
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Supported Diseases Section -->
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center mb-4">Diseases We Monitor</h3>
+                <div class="row g-3">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-danger me-2"></i>
+                            <span>Powdery Mildew</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-danger me-2"></i>
+                            <span>Leaf Spot</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-warning me-2"></i>
+                            <span>Mites Infestation</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-danger me-2"></i>
+                            <span>Blight</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-danger me-2"></i>
+                            <span>Root Rot</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-warning me-2"></i>
+                            <span>Leaf Curl</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-warning me-2"></i>
+                            <span>Anthracnose</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-circle-fill text-danger me-2"></i>
+                            <span>Frost Damage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

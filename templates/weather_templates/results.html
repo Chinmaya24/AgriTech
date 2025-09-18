@@ -1,0 +1,188 @@
+{% extends "weather_templates/base.html" %}
+
+{% block title %}Results - Crop Disease Forecaster{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div class="bg-primary text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="mb-0">
+                    <i class="bi bi-geo-alt-fill"></i> {{ location }}
+                </h2>
+                <p class="mb-0">Krushi Snehii Disease Risk Analysis Results</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- Weather Forecast Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="bi bi-cloud-sun"></i> 3-Day Weather Forecast
+            </h3>
+        </div>
+        
+        {% for day in forecast %}
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ day.day_name }}</h5>
+                    <p class="text-muted">{{ day.date }}</p>
+                    
+                    <div class="mb-3">
+                        <i class="bi bi-thermometer-half weather-icon text-primary"></i>
+                        <span class="fs-4 fw-bold">{{ day.temp }}°C</span>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <i class="bi bi-droplet weather-icon text-info"></i>
+                        <span>{{ day.humidity }}% Humidity</span>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <i class="bi bi-cloud-rain weather-icon text-secondary"></i>
+                        <span>{{ day.rain }}mm Rain</span>
+                    </div>
+                    
+                    <div class="badge bg-light text-dark">
+                        {{ day.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Disease Risk Analysis -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="bi bi-exclamation-triangle"></i> Disease Risk Analysis
+            </h3>
+        </div>
+        
+        {% for day_data in diseases %}
+        <div class="col-12 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="bi bi-calendar-date"></i> {{ day_data.day_name }} - {{ day_data.date }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if day_data.conditions %}
+                        <div class="row">
+                            {% for disease in day_data.conditions %}
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="card border-start border-4 
+                                    {% if disease.risk == 'High' %}border-danger
+                                    {% elif disease.risk == 'Medium' %}border-warning
+                                    {% else %}border-success{% endif %}">
+                                    <div class="card-body">
+                                        <h6 class="card-title d-flex justify-content-between align-items-center">
+                                            {{ disease.name }}
+                                            <span class="badge 
+                                                {% if disease.risk == 'High' %}bg-danger
+                                                {% elif disease.risk == 'Medium' %}bg-warning
+                                                {% else %}bg-success{% endif %}">
+                                                {{ disease.risk }} Risk
+                                            </span>
+                                        </h6>
+                                        <p class="card-text small text-muted">{{ disease.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-3">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <p class="mb-0">No significant disease risks detected for this day</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Precautions Section -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="bi bi-lightbulb"></i> Farmer's Guide & Precautions
+            </h3>
+        </div>
+        
+        {% for category in precautions %}
+        <div class="col-lg-6 col-xl-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-shield-check"></i> {{ category.category }}
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        {% for tip in category.tips %}
+                        <li class="mb-2">
+                            <i class="bi bi-arrow-right-circle text-success me-2"></i>
+                            <small>{{ tip }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <a href="{{ url_for('home') }}" class="btn btn-primary btn-lg me-3">
+                <i class="bi bi-arrow-left"></i> Check Another Location
+            </a>
+            <button class="btn btn-outline-secondary btn-lg" onclick="window.print()">
+                <i class="bi bi-printer"></i> Print Report
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Print Styles -->
+<style>
+@media print {
+    .navbar, .btn, footer {
+        display: none !important;
+    }
+    .card {
+        break-inside: avoid;
+    }
+    .hero-section {
+        background: none !important;
+        color: black !important;
+    }
+}
+</style>
+{% if error %}
+  <p>{{ error }}</p>
+{% else %}
+  <h2>Weather Forecast for {{ location }}</h2>
+  {% for day in forecast %}
+    <p>{{ day.date }}: {{ day.day.condition.text }}, {{ day.day.avgtemp_c }}°C</p>
+  {% endfor %}
+  <h3>Disease Risk Analysis</h3>
+  {% for disease in diseases %}
+    <p>{{ disease }}</p>
+  {% endfor %}
+  <h3>Farmer's Guide & Precautions</h3>
+  {% for tip in precautions %}
+    <p>{{ tip }}</p>
+  {% endfor %}
+{% endif %}
+{% endblock %}

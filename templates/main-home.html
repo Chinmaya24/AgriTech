@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriAI Dashboard</title>
+  <title>Krushi Snehii</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='main-home.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-  <img src="{{ url_for('static', filename='assets/leaf-logo.svg') }}" alt="AgriAI Logo" class="logo-img" /> AgriAI
+  <img src="{{ url_for('static', filename='assets/logo.jpg') }}" alt="Krushi Snehii" class="logo-img" /> Krushi Snehii
       </div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
@@ -60,11 +60,12 @@
   </header>
   <aside class="sidebar">
     <ul>
-  <li><a href="/ai-disease"><img src="{{ url_for('static', filename='assets/leaf-ai.svg') }}" alt="AI" class="sidebar-icon"/> AI Crop Disease</a></li>
-  <li><a href="/food-security"><img src="{{ url_for('static', filename='assets/leaf-food.svg') }}" alt="Food" class="sidebar-icon"/> Food Security</a></li>
-  <li><a href="/hydro"><img src="{{ url_for('static', filename='assets/leaf-hydro.svg') }}" alt="Hydroponics" class="sidebar-icon"/> Hydroponics</a></li>
-  <li><a href="/community"><img src="{{ url_for('static', filename='assets/leaf-community.svg') }}" alt="Community" class="sidebar-icon"/> F2F Community</a></li>
-  <li><a href="/gobar-gas"><img src="{{ url_for('static', filename='assets/leaf-gobar.svg') }}" alt="Gobar Gas" class="sidebar-icon"/> Gobar Gas</a></li>
+  <li><a href="/ai-disease"><img src="{{ url_for('static', filename='assets/croptest.jpg') }}" alt="AI" class="sidebar-icon"/> AI Crop Disease</a></li>
+  <li><a href="/food-security"><img src="{{ url_for('static', filename='assets/Foodsafety.jpg') }}" alt="Food" class="sidebar-icon"/> Food Security</a></li>
+  <li><a href="/hydro"><img src="{{ url_for('static', filename='assets/hydrophonics.jpg') }}" alt="Hydroponics" class="sidebar-icon"/> Hydroponics</a></li>
+  <li><a href="/community"><img src="{{ url_for('static', filename='assets/f2f.jpg') }}" alt="Community" class="sidebar-icon"/> F2F Community</a></li>
+  <li><a href="/gobar-gas"><img src="{{ url_for('static', filename='assets/gobar.jpg') }}" alt="Gobar Gas" class="sidebar-icon"/> Gobar Gas</a></li>
+  <li><a href="/weather"><img src="{{ url_for('static', filename='assets/weather.jpg') }}" alt="Weather" class="sidebar-icon"/> Weather</a></li>
     </ul>
   </aside>
   <main>
@@ -72,7 +73,7 @@
       <div class="hero-content">
         <h1>
           <span class="hero-title-gradient">AI Crop Disease Detection</span>
-    <img src="{{ url_for('static', filename='assets/leaf-hero.svg') }}" alt="AI Crop" class="hero-icon" />
+    <img src="{{ url_for('static', filename='assets/croptest.jpg') }}" alt="AI Crop" class="hero-icon" />
         </h1>
         <p>Empowering farmers with <span class="highlight nature-highlight">AI-powered early warning</span> and management of crop diseases.</p>
           <a href="/ai-disease" class="cta-btn pulse nature-btn">Try Detection Now</a>
@@ -81,46 +82,52 @@
     </section>
     <section class="quick-stats">
       <div class="stat-card nature-card">
-  <img src="{{ url_for('static', filename='assets/leaf-disease.svg') }}" alt="Disease" class="stat-icon" />
+  <img src="{{ url_for('static', filename='assets/cropdes.jpg') }}" alt="Disease" class="stat-icon" />
         <h2>1,245</h2>
         <p>Disease Cases Detected</p>
       </div>
       <div class="stat-card nature-card">
-  <img src="{{ url_for('static', filename='assets/leaf-co2.svg') }}" alt="CO2" class="stat-icon" />
+  <img src="{{ url_for('static', filename='assets/co2.jpg') }}" alt="CO2" class="stat-icon" />
         <h2>3,200kg</h2>
         <p>CO₂ Saved (Gobar Gas)</p>
       </div>
       <div class="stat-card nature-card">
-  <img src="{{ url_for('static', filename='assets/leaf-farmer.svg') }}" alt="Farmers" class="stat-icon" />
+  <img src="{{ url_for('static', filename='assets/farmer.jpg') }}" alt="Farmers" class="stat-icon" />
         <h2>5,800+</h2>
         <p>Active Farmers</p>
       </div>
     </section>
     <section class="modules">
       <div class="module-card nature-card" id="food-security">
-  <img src="{{ url_for('static', filename='assets/leaf-food.svg') }}" alt="Food Security" class="module-icon" />
+  <img src="{{ url_for('static', filename='assets/Foodsafety.jpg') }}" alt="Food Security" class="module-icon" />
         <h3>Food Security Platform</h3>
         <p>Connects farmers to markets and NGOs for better food security.</p>
   <a href="/food-security" class="module-link nature-link">Explore</a>
       </div>
       <div class="module-card nature-card" id="hydroponics">
-  <img src="{{ url_for('static', filename='assets/leaf-hydro.svg') }}" alt="Hydroponics" class="module-icon" />
+  <img src="{{ url_for('static', filename='assets/hydrophonics.jpg') }}" alt="Hydroponics" class="module-icon" />
         <h3>Hydroponics Platform</h3>
         <p>Learn and build your own hydroponic farm with expert guidance.</p>
         <a href="#hydroponics-module" class="module-link nature-link">Learn More</a>
       </div>
       <div class="module-card nature-card" id="community">
-  <img src="{{ url_for('static', filename='assets/leaf-community.svg') }}" alt="Community" class="module-icon" />
+  <img src="{{ url_for('static', filename='assets/f2f.jpg') }}" alt="Community" class="module-icon" />
         <h3>Farmer-to-Farmer Community</h3>
         <p>Join the community, share experiences, and grow together.</p>
         <a href="#community-module" class="module-link nature-link">Join Now</a>
       </div>
       <div class="module-card nature-card" id="gobar-gas">
-  <img src="{{ url_for('static', filename='assets/leaf-gobar.svg') }}" alt="Gobar Gas" class="module-icon" />
+  <img src="{{ url_for('static', filename='assets/gobar.jpg') }}" alt="Gobar Gas" class="module-icon" />
         <h3>Gobar Gas Module</h3>
         <p>Biogas education, calculator, and community marketplace.</p>
         <a href="#gobar-gas-module" class="module-link nature-link">Calculate & Connect</a>
       </div>
+      <div class="module-card nature-card" id="weather">
+  <img src="{{ url_for('static', filename='assets/weather.jpg') }}" alt="Weather" class="module-icon" />
+  <h3>Weather Forecast</h3>
+  <p>Get local weather updates and forecasts for your farm.</p>
+  <a href="/weather" class="module-link nature-link">Check Weather</a>
+</div>
     </section>
     <section class="embedded-modules">
       <!-- Example iframe integration for existing modules -->
@@ -129,18 +136,19 @@
     <iframe src="/hydro" title="Hydroponics Platform" class="embed-frame nature-frame"></iframe>
     <iframe src="/community" title="Farmer-to-Farmer Community" class="embed-frame nature-frame"></iframe>
     <iframe src="/gobar-gas" title="Gobar Gas Module" class="embed-frame nature-frame"></iframe>
+    <iframe src="/weather" title="Weather Forecast" class="embed-frame nature-frame"></iframe>
     </section>
   </main>
   <footer>
     <div class="footer-content">
-      <p>Contact: <a href="mailto:info@agriai.com">info@agriai.com</a> | <a href="tel:+911234567890">+91-12345-67890</a></p>
+      <p>Contact: <a href="mailto:info@krushisnehii.com">info@krushisnehii.com</a> | <a href="tel:+911234567890">+91-12345-67890</a></p>
       <div class="social-links">
   <a href="#"><img src="{{ url_for('static', filename='assets/facebook.svg') }}" alt="Facebook"></a>
   <a href="#"><img src="{{ url_for('static', filename='assets/twitter.svg') }}" alt="Twitter"></a>
   <a href="#"><img src="{{ url_for('static', filename='assets/instagram.svg') }}" alt="Instagram"></a>
   <a href="#"><img src="{{ url_for('static', filename='assets/youtube.svg') }}" alt="YouTube"></a>
       </div>
-      <p>© 2025 AgriAI. <span class="footer-credits">Credits: Hackaphasia 2.0 Team</span></p>
+      <p>© 2025 Krushi Snehii. <span class="footer-credits"></span></p>
     </div>
   </footer>
 </body>
