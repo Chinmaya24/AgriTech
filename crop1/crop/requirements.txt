@@ -1,0 +1,7 @@
+# Core packages
+Flask
+numpy
+tensorflow-intel
+Pillow
+opencv-python
+opencv-contrib-python
