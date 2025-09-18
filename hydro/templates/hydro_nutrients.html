@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Nutrient Mix</h2>
+
+<form method="post" action="{{ url_for('nutrients') }}" class="hydro-form">
+  <div class="form-group">
+    <label for="crop">Select Crop:</label>
+    <select id="crop" name="crop" required>
+      <option value="">Choose a crop</option>
+      <option value="tomato">Tomato</option>
+      <option value="pepper">Pepper</option>
+      <option value="cucumber">Cucumber</option>
+      <option value="lettuce">Lettuce</option>
+      <option value="strawberry">Strawberry</option>
+      <option value="basil">Basil</option>
+      <option value="spinach">Spinach</option>
+      <option value="beans">Beans</option>
+      <option value="mint">Mint</option>
+      <option value="radish">Radish</option>
+      <option value="kale">Kale</option>
+      <option value="mustard">Mustard</option>
+      <option value="rosemary">Rosemary</option>
+      <option value="peas">Peas</option>
+      <option value="coriander">Coriander</option>
+      <option value="chilli">Chilli</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit" class="btn-success">Get Nutrient Recipe</button>
+  </div>
+</form>
+
+{% if mix %}
+  <section class="card" style="margin-top:1.5rem;">
+    <h3>Recipe for {{ request.form.crop | title }}</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nutrient Parameter</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NPK Ratio</td>
+          <td>{{ mix.npk_ratio }}</td>
+        </tr>
+        <tr>
+          <td>pH Range</td>
+          <td>{{ mix.ph_range }}</td>
+        </tr>
+        <tr>
+          <td>EC Range</td>
+          <td>{{ mix.ec_range }}</td>
+        </tr>
+        <tr>
+          <td>Daily Water Usage</td>
+          <td>{{ mix.daily_water_usage }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+{% endif %}
+{% endblock %}
+
+

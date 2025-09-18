@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🌱 Hydroponics Recommendation Tool</h2>
+<p class="intro-text">Get personalized hydroponic system recommendations based on your crop, space, budget, and lighting conditions.</p>
+
+<form method="post" action="{{ url_for('recommend') }}" class="hydro-form">
+  <div class="form-group">
+    <label for="crop">🌾 Select Crop</label>
+    <select id="crop" name="crop" required>
+      <option value="">Choose your crop</option>
+      <option value="lettuce">Lettuce</option>
+      <option value="tomato">Tomato</option>
+      <option value="pepper">Pepper</option>
+      <option value="cucumber">Cucumber</option>
+      <option value="basil">Basil</option>
+      <option value="spinach">Spinach</option>
+      <option value="kale">Kale</option>
+      <option value="mint">Mint</option>
+      <option value="coriander">Coriander</option>
+      <option value="chilli">Chilli</option>
+      <option value="strawberry">Strawberry</option>
+      <option value="radish">Radish</option>
+      <option value="mustard">Mustard</option>
+      <option value="rosemary">Rosemary</option>
+      <option value="peas">Peas</option>
+      <option value="beans">Beans</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="space">📏 Available Space</label>
+    <select id="space" name="space" required>
+      <option value="">Select space size</option>
+      <option value="small">Small (1-2 m²) - Balcony, Shelf</option>
+      <option value="medium">Medium (2-4 m²) - Room, Cabinet</option>
+      <option value="large">Large (4+ m²) - Greenhouse, Room</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="budget">💰 Budget Range</label>
+    <select id="budget" name="budget" required>
+      <option value="">Select budget</option>
+      <option value="low">Low (₹5,000 - ₹10,000)</option>
+      <option value="medium">Medium (₹10,000 - ₹25,000)</option>
+      <option value="high">High (₹25,000+)</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="lighting">💡 Lighting Conditions</label>
+    <select id="lighting" name="lighting" required>
+      <option value="">Select lighting</option>
+      <option value="sunlight">Natural Sunlight (Outdoor/Bright)</option>
+      <option value="indoor">Indoor (Partial Light)</option>
+      <option value="LED">LED Grow Lights</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <button type="submit" class="btn-success">Get My Recommendation</button>
+  </div>
+</form>
+
+{% if result %}
+  <section class="card recommendation-results">
+    <div class="system-header">
+      <h3>🌱 Recommended System: <span class="system-name">{{ result.system }}</span></h3>
+      <div class="system-badge {{ result.system.lower() }}">{{ result.system }}</div>
+    </div>
+    
+    <!-- System Description -->
+    <div class="system-description">
+      <h4>📖 How {{ result.system }} Works</h4>
+      <p class="detailed-desc">{{ result.system_description }}</p>
+    </div>
+    
+    <!-- Key Metrics Grid -->
+    <div class="results-grid">
+      <div class="result-card cost-card">
+        <h4>💰 Investment Required</h4>
+        <p class="cost-highlight">{{ result.cost }}</p>
+        <p class="lifespan">Component Lifespan: {{ result.component_lifespan }}</p>
+        <p class="roi-note">ROI typically achieved in 6-12 months</p>
+      </div>
+      
+      <div class="result-card yield-card">
+        <h4>📈 Expected Production</h4>
+        <p class="yield-highlight">{{ result.yield }}</p>
+        <p class="quality-badge quality-{{ result.yield_quality.lower() }}">{{ result.yield_quality }} Quality</p>
+        <p class="harvest-time">First Harvest: {{ result.first_harvest }}</p>
+      </div>
+      
+      <div class="result-card difficulty-card">
+        <h4>🎯 Setup & Maintenance</h4>
+        <p class="difficulty-level difficulty-{{ result.setup_difficulty.lower() }}">{{ result.setup_difficulty }} Setup</p>
+        <p class="maintenance-level maintenance-{{ result.maintenance.lower() }}">{{ result.maintenance }} Maintenance</p>
+        <p class="growth-speed speed-{{ result.growth_speed.lower() }}">{{ result.growth_speed }} Growth</p>
+      </div>
+    </div>
+
+    <!-- Recommended Crops -->
+    <div class="crops-section">
+      <h4>🌾 Best Crops for {{ result.system }}</h4>
+      <div class="crops-grid">
+        {% for crop in result.recommended_crops.split(', ') %}
+        <span class="crop-tag">{{ crop }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Performance Matrix -->
+    <div class="performance-section">
+      <h4>🔍 System Performance Analysis</h4>
+      <div class="performance-grid">
+        <div class="performance-item">
+          <span class="label">💧 Water Efficiency</span>
+          <span class="value efficiency-high">{{ result.water_efficiency }}</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">🌿 Nutrient Efficiency</span>
+          <span class="value efficiency-high">{{ result.nutrient_efficiency }}</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">⚡ Growth Speed</span>
+          <span class="value speed-{{ result.growth_speed.lower() }}">{{ result.growth_speed }}</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">🛡️ Pest Resistance</span>
+          <span class="value resistance-{{ result.pest_resistance.lower() }}">{{ result.pest_resistance }}</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">🔧 Maintenance Level</span>
+          <span class="value maintenance-{{ result.maintenance.lower() }}">{{ result.maintenance }}</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">🎯 Setup Difficulty</span>
+          <span class="value difficulty-{{ result.setup_difficulty.lower() }}">{{ result.setup_difficulty }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lighting Recommendation -->
+    <div class="lighting-section">
+      <h4>💡 Lighting Setup</h4>
+      <div class="lighting-advice">
+        <p>{{ result.light }}</p>
+        <div class="lighting-tips">
+          <h5>💡 Pro Tips:</h5>
+          <ul>
+            <li>Use full-spectrum LED lights for best results</li>
+            <li>Maintain 12-16 hours of light per day</li>
+            <li>Keep lights 6-12 inches from plant tops</li>
+            <li>Monitor for light burn on leaves</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost Breakdown -->
+    <div class="cost-section">
+      <h4>📋 Detailed Cost Breakdown</h4>
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Estimated Cost</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for component, cost in result.cost_breakdown.items() %}
+          <tr>
+            <td>{{ component }}</td>
+            <td class="cost-value">{{ cost }}</td>
+            <td class="component-purpose">
+              {% if component == "Pvc Channels" %}Water flow channels for NFT{% endif %}
+              {% if component == "Water Pump" %}Circulates nutrient solution{% endif %}
+              {% if component == "Reservoir" %}Stores nutrient solution{% endif %}
+              {% if component == "Net Pots" %}Hold plants in system{% endif %}
+              {% if component == "Nutrients" %}Plant food and minerals{% endif %}
+              {% if component == "Timer" %}Automates pump cycles{% endif %}
+              {% if component == "Tank" %}Main growing container{% endif %}
+              {% if component == "Air Pump" %}Oxygenates water{% endif %}
+              {% if component == "Air Stones" %}Creates fine bubbles{% endif %}
+              {% if component == "Ph Meter" %}Measures acidity levels{% endif %}
+              {% if component == "Container" %}Simple growing vessel{% endif %}
+              {% if component == "Mist Nozzles" %}Sprays nutrient mist{% endif %}
+              {% if component == "High Pressure Pump" %}Creates fine mist{% endif %}
+              {% if component == "Sensors" %}Monitors system conditions{% endif %}
+              {% if component == "Led Lights" %}Provides artificial lighting{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Yield Tips -->
+    <div class="tips-section">
+      <h4>💡 Expert Tips for Maximum Yield</h4>
+      <div class="yield-tips">
+        <p><strong>Key Success Factors:</strong></p>
+        <p>{{ result.yield_tips }}</p>
+        
+        <div class="additional-tips">
+          <h5>🌱 Additional Recommendations:</h5>
+          <ul>
+            <li>Monitor pH levels daily (5.5-6.5 range)</li>
+            <li>Check EC (nutrient strength) weekly</li>
+            <li>Maintain consistent temperature (18-25°C)</li>
+            <li>Ensure proper air circulation</li>
+            <li>Clean system components regularly</li>
+            <li>Start with healthy, disease-free plants</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Visual -->
+    <div class="system-visual-section">
+      <h4>🏗️ {{ result.system }} System Overview</h4>
+      <div class="system-visual {{ result.system.lower() }}">
+        {% if result.system == "NFT" %}
+          <div class="system-diagram">
+            <p>📊 <strong>NFT (Nutrient Film Technique)</strong></p>
+            <div class="diagram-text">
+              <p>🌊 Continuous shallow stream of nutrient solution flows through sloped channels</p>
+              <ul>
+                <li>✅ Best for leafy greens and herbs</li>
+                <li>✅ Requires consistent water flow</li>
+                <li>✅ Moderate maintenance needed</li>
+                <li>✅ High water efficiency</li>
+                <li>✅ Space-efficient design</li>
+              </ul>
+            </div>
+          </div>
+        {% elif result.system == "DWC" %}
+          <div class="system-diagram">
+            <p>🪣 <strong>DWC (Deep Water Culture)</strong></p>
+            <div class="diagram-text">
+              <p>💧 Plant roots suspended in oxygenated nutrient solution</p>
+              <ul>
+                <li>✅ Great for tomatoes, peppers, cucumbers</li>
+                <li>✅ Requires air pump for oxygenation</li>
+                <li>✅ Beginner-friendly system</li>
+                <li>✅ Stable and reliable</li>
+                <li>✅ Good for larger plants</li>
+              </ul>
+            </div>
+          </div>
+        {% elif result.system == "Kratky" %}
+          <div class="system-diagram">
+            <p>🌱 <strong>Kratky Method</strong></p>
+            <div class="diagram-text">
+              <p>🔄 Passive system with no pumps - perfect for beginners</p>
+              <ul>
+                <li>✅ No electricity required</li>
+                <li>✅ Very low maintenance</li>
+                <li>✅ Ideal for small leafy crops</li>
+                <li>✅ Extremely cost-effective</li>
+                <li>✅ Great for learning hydroponics</li>
+              </ul>
+            </div>
+          </div>
+        {% elif result.system == "Aeroponics" %}
+          <div class="system-diagram">
+            <p>💨 <strong>Aeroponics</strong></p>
+            <div class="diagram-text">
+              <p>🌫️ Roots suspended in air with nutrient mist delivery</p>
+              <ul>
+                <li>✅ Highest yield potential</li>
+                <li>✅ Requires advanced monitoring</li>
+                <li>✅ Best for commercial setups</li>
+                <li>✅ Maximum oxygen exposure</li>
+                <li>✅ Fastest growth rates</li>
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% endblock %}
+
+
