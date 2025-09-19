@@ -1,60 +1,50 @@
+# 🌱 Krushi Snehii - AI-Powered Agriculture Platform
 
-🌱 Krushi Snehii
+Krushi Snehii is a comprehensive AI-powered agriculture platform that helps farmers with early crop disease detection, community networking, market access, weather forecasting, sustainability advice, and animal husbandry guidance. It integrates machine learning, community engagement, and marketplace tools into one ecosystem for sustainable farming.
 
-Krushi Snehii is an AI-powered agriculture platform that helps farmers with early crop disease detection, community networking, and market access.
-It integrates machine learning, community engagement, and marketplace tools into one ecosystem for sustainable farming.
+## 🚀 Features
 
-🚀 Features
+- 🌾 **AI Crop Disease Detection** - Upload crop leaf images for AI-powered disease prediction and treatment suggestions
+- 👨‍👩‍👧‍👦 **FarmConnect** - Community platform for farmers to connect, share posts, and join NGOs
+- 💬 **Farmer Community** - Discussion forum for farmers to interact and share experiences
+- 🛒 **Market Access** - Connect with local markets and NGOs for support and selling
+- 🌤️ **Weather Forecasting** - Get local weather updates and disease risk analysis
+- 🌿 **Sustainability Advisor** - Find organic alternatives for fertilizers and pesticides
+- 🐄 **Animal Husbandry Guide** - Comprehensive guide for dairy, poultry, fish farming, and more
+- 💧 **Hydroponics Advisor** - Learn and build hydroponic farming systems
+- 🔥 **Gobar Gas Calculator** - Biogas education and community marketplace
+- 📈 **Market Price Tracker** - Real-time crop price monitoring
 
-🌾 Crop Disease Detection
-Upload crop leaf images → AI model predicts disease and suggests remedies.
-(Supports Tomato, Potato, Corn using Plant Diseases (3 Types)
-).
-
-👨‍👩‍👧‍👦 FarmConnect
-Farmers can connect, share posts, join NGOs, and explore market opportunities.
-
-💬 Farmer Community
-Discussion forum where farmers facing similar issues can interact and share experiences.
-
-🛒 Market Access
-Farmers can connect with local markets and NGOs for support and selling.
-
-📂 Project Structure
-
+## 📂 Project Structure
 
 ```
 AgriTech/
 │
-├── app.py
+├── app.py                              # Main Flask application
 ├── LICENSE
 ├── README.md
+├── .env                               # Environment variables (API keys)
+├── requirements.txt
 │
-├── crop1/
+├── crop1/                             # AI Crop Disease Module
 │   └── crop/
 │       ├── app.py
-│       ├── community.db
+│       ├── community.db               # SQLite database for community
 │       ├── requirements.txt
 │       ├── model/
-│       │   └── plant_disease_model.h5
+│       │   └── plant_disease_model.h5 # Trained ML model
 │       ├── templates/
 │       │   ├── community.html
 │       │   ├── index.html
 │       │   ├── new_post.html
 │       │   └── post_detail.html
-│       └── uploads/
-│           ├── Bharatiya Antariksh Hackathon 2025 Idea Submission PPT[1].pptx
+│       └── uploads/                   # User uploaded images
 │           ├── cknpic.jpg
 │           ├── corn.jpeg
-│           ├── crn.jpg
-│           ├── PLACEMENT POSTER.png
 │           ├── potato.jpeg
-│           ├── pto.jpg
-│           ├── tmt.jpg
-│           ├── toamto1.jpeg
-│           ├── tomato.jpeg
+│           └── tomato.jpeg
 │
-├── FarmConnect/
+├── FarmConnect/                       # Farmer Community Module
 │   ├── app.py
 │   ├── static/
 │   │   ├── css/
@@ -69,7 +59,7 @@ AgriTech/
 │       ├── ngos.html
 │       └── upload.html
 │
-├── gobar-gas-app/
+├── gobar-gas-app/                     # Biogas Calculator Module
 │   ├── app.js
 │   ├── index.html
 │   ├── manifest.json
@@ -79,7 +69,7 @@ AgriTech/
 │   └── translations/
 │       └── en.json
 │
-├── hydro/
+├── hydro/                             # Hydroponics Module
 │   ├── app.py
 │   ├── hydro_utils.py
 │   ├── __pycache__/
@@ -96,12 +86,32 @@ AgriTech/
 │       ├── hydro_recommend.html
 │       └── hydro_setup.html
 │
-├── static/
+├── price/                             # Market Price Module
+│   └── app.py
+│
+├── sustain/                           # Sustainability Module
+│   ├── app.py
+│   └── sustainability.py
+│
+├── weather/                           # Weather Forecasting Module
+│   ├── app.py
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── __pycache__/
+│   │   └── app.cpython-313.pyc
+│   └── templates/
+│       ├── base.html
+│       ├── index.html
+│       └── results.html
+│
+├── static/                            # Static Assets
 │   ├── gobar_app.js
 │   ├── gobar_styles.css
 │   ├── main-home.css
 │   ├── main-home.js
-│   ├── assets/
+│   │
+│   ├── assets/                        # Images and Media
 │   │   ├── co2.jpg
 │   │   ├── cropdes.jpg
 │   │   ├── croptest.jpg
@@ -114,159 +124,200 @@ AgriTech/
 │   │   ├── hydrophonics.jpg
 │   │   ├── instagram.jpg
 │   │   ├── logo.jpg
+│   │   ├── marketpriselogo.png
+│   │   ├── sustainability.png
 │   │   ├── weather.jpg
 │   │   ├── X.jpg
 │   │   ├── Youtube.jpg
-│   ├── farmconnect_static/
+│   │   └── animal_husbandary/
+│   │       ├── aseel_chicken.png
+│   │       ├── catla_fish.png
+│   │       ├── gir_cow.png
+│   │       ├── holstein_friesian.png
+│   │       ├── indian_hive_bee.png
+│   │       ├── jersey_cow.png
+│   │       ├── kadaknath.png
+│   │       ├── mulberry_silkworm.png
+│   │       ├── murrah_buffalo.png
+│   │       ├── rock_bee.png
+│   │       ├── rohu_fish.png
+│   │       ├── tasar_silkworm.png
+│   │       ├── tilapia.png
+│   │       └── white_leghorn.png
+│   │
+│   ├── animal_husbandary_static/      # Animal Husbandry Styles
+│   │   ├── script.js
+│   │   └── style.css
+│   │
+│   ├── farmconnect_static/            # FarmConnect Styles
 │   │   ├── css/
 │   │   │   └── style.css
 │   │   └── js/
 │   │       └── main.js
-│   └── hydro_static/
-│       ├── css/
-│       │   └── style.css
-│       └── js/
-│           └── app.js
+│   │
+│   ├── hydro_static/                  # Hydroponics Styles
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── app.js
+│   │
+│   └── sustain_static/                # Sustainability Styles
+│       └── style.css
 │
-├── templates/
-│   ├── gobar_index.html
-│   ├── main-home.html
-│   ├── crop_templates/
-│   │   ├── community.html
-│   │   ├── index.html
-│   │   ├── new_post.html
-│   │   └── post_detail.html
-│   ├── farmconnect_templates/
-│   │   ├── base.html
-│   │   ├── index.html
-│   │   ├── markets.html
-│   │   ├── ngo_detail.html
-│   │   ├── ngos.html
-│   │   └── upload.html
-│   ├── hydro_templates/
-│   │   ├── base.html
-│   │   ├── hydro_info.html
-│   │   ├── hydro_nutrients.html
-│   │   ├── hydro_recommend.html
-│   │   └── hydro_setup.html
-│   └── weather_templates/
-│       ├── base.html
-│       ├── index.html
-│       └── results.html
-│
-└── weather/
-    ├── app.py
-    ├── README.md
-    ├── requirements.txt
-    ├── setup.py
-    ├── __pycache__/
-    │   └── app.cpython-313.pyc
-    └── templates/
+└── templates/                         # HTML Templates
+    ├── animal_index.html              # Animal Husbandry Home
+    ├── gobar_index.html               # Biogas Calculator
+    ├── main-home.html                 # Main Dashboard
+    ├── sustain_index.html             # Sustainability Advisor
+    │
+    ├── animal_husbandary_pages/       # Animal Farming Pages
+    │   ├── apiculture.html            # Beekeeping Guide
+    │   ├── breed.html                 # Breed Details
+    │   ├── dairy.html                 # Dairy Farming
+    │   ├── pisciculture.html          # Fish Farming
+    │   ├── poultry.html               # Poultry Farming
+    │   └── sericulture.html           # Silk Farming
+    │
+    ├── crop_templates/                # Crop Disease Templates
+    │   ├── community.html
+    │   ├── index.html
+    │   ├── new_post.html
+    │   └── post_detail.html
+    │
+    ├── farmconnect_templates/         # FarmConnect Templates
+    │   ├── base.html
+    │   ├── index.html
+    │   ├── markets.html
+    │   ├── ngo_detail.html
+    │   ├── ngos.html
+    │   └── upload.html
+    │
+    ├── hydro_templates/               # Hydroponics Templates
+    │   ├── base.html
+    │   ├── hydro_info.html
+    │   ├── hydro_nutrients.html
+    │   ├── hydro_recommend.html
+    │   └── hydro_setup.html
+    │
+    ├── price_templates/               # Market Price Templates
+    │   ├── base.html
+    │   └── market.html
+    │
+    └── weather_templates/             # Weather Forecast Templates
         ├── base.html
         ├── index.html
         └── results.html
 ```
 
-🛠️ Installation & Setup
-1. Clone the Repository
-git clone https://github.com/your-username/Krushi_Snehii.git
-cd Krushi_Snehii-main
+## 🛠️ Technology Stack
 
-2. Install Dependencies
-pip install -r crop1/crop/requirements.txt
+- **Backend**: Python, Flask
+- **AI/ML**: TensorFlow, Keras
+- **Database**: SQLite
+- **Frontend**: HTML5, CSS3, JavaScript
+- **APIs**: WeatherAPI, Government Data APIs
+- **Styling**: Bootstrap, Custom CSS
 
-3. Run the Applications
+## 🔧 Installation & Setup
 
-Main App
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/AgriTech.git
+   cd AgriTech
+   ```
 
-python app.py
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```env
+   SECRET_KEY=your_secret_key_here
+   WEATHERAPI_KEY=your_weather_api_key
+   AGMARKNET_API_KEY=your_market_api_key
+   ```
 
-FarmConnect (Community & Market)
+4. **Run the application**
+   ```bash
+   python app.py
+   ```
 
-cd FarmConnect
-python app.py
+5. **Access the application**
+   Open your browser and navigate to `http://localhost:5000`
 
+## 📱 Features Overview
 
-Crop Disease Detection
+### 🌾 AI Crop Disease Detection
+- Upload crop leaf images
+- AI-powered disease identification
+- Treatment recommendations
+- Supports Tomato, Potato, and Corn crops
 
-cd crop1/crop
-python app.py
+### 🌤️ Weather & Disease Risk Analysis
+- 3-day weather forecasting
+- Disease risk assessment based on weather conditions
+- Farmer-specific recommendations
+- Location-based predictions
 
-📊 Dataset
+### 🌿 Sustainability Advisor
+- Organic alternatives to chemical fertilizers
+- Eco-friendly pesticide substitutes
+- Detailed application procedures
+- Environmental impact analysis
 
-We use the Plant Diseases (3 Types)
- dataset, which contains labeled images of:
+### 🐄 Animal Husbandry Guide
+- **Dairy Farming**: Cow breeds, milking, feeding
+- **Poultry Farming**: Chicken breeds, housing, biosecurity
+- **Pisciculture**: Fish farming, pond management
+- **Apiculture**: Beekeeping, honey production
+- **Sericulture**: Silkworm rearing, cocoon production
 
-🌽 Corn (Healthy / Diseased)
+### 💧 Hydroponics System
+- Nutrient solution calculator
+- System setup guidance
+- Plant recommendations
+- Resource optimization
 
-🥔 Potato (Healthy / Diseased)
+### 📈 Market Integration
+- Real-time crop prices
+- Market trend analysis
+- NGO and buyer connections
+- Selling opportunities
 
-🍅 Tomato (Healthy / Diseased)
+## 🤝 Contributing
 
-Download via kagglehub:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-import kagglehub
+## 📄 License
 
-# Download latest version
-path = kagglehub.dataset_download("kashyapankush/plant-diseases-3-types")
-print("Path to dataset files:", path)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-🧠 Model Training (Optional)
+## 👥 Team
 
-To retrain the model:
+- **Project Lead**: [Your Name]
+- **AI/ML Developer**: [Team Member]
+- **Backend Developer**: [Team Member]
+- **Frontend Developer**: [Team Member]
 
-import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+## 📞 Contact
 
-data_dir = path  # from kagglehub
-img_size = (128, 128)
-batch_size = 32
+- **Email**: info@krushisnehii.com
+- **Phone**: +91-12345-67890
+- **Website**: [www.krushisnehii.com](http://www.krushisnehii.com)
 
-datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+## 🙏 Acknowledgments
 
-train_data = datagen.flow_from_directory(
-    data_dir,
-    target_size=img_size,
-    batch_size=batch_size,
-    class_mode='categorical',
-    subset='training'
-)
+- Thanks to the farming community for their valuable feedback
+- Weather data provided by WeatherAPI
+- Market data from Government of India APIs
+- Plant disease dataset contributors
 
-val_data = datagen.flow_from_directory(
-    data_dir,
-    target_size=img_size,
-    batch_size=batch_size,
-    class_mode='categorical',
-    subset='validation'
-)
+---
 
-# Example model
-model = tf.keras.applications.MobileNetV2(input_shape=(128,128,3), weights=None, classes=6)
-model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
-model.fit(train_data, validation_data=val_data, epochs=10)
-
-# Save model
-model.save("plant_disease_model.h5")
-
-
-Place the trained model inside:
-
-crop1/crop/model/plant_disease_model.h5
-
-📸 Screenshots
-
-Disease detection upload page
-
-Farmer community forum
-
-Market & NGO connect
-
-🤝 Contributing
-
-Pull requests are welcome. For major changes, please open an issue first.
-
-📜 License
-
-This project is licensed under the MIT License
-.
+**Made with ❤️ for farmers by the Krushi Snehii team**
