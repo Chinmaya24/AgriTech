@@ -20,21 +20,148 @@ Discussion forum where farmers facing similar issues can interact and share expe
 Farmers can connect with local markets and NGOs for support and selling.
 
 📂 Project Structure
-Krushi_Snehii-main/
-│── app.py                     # Main entry point
-│── .env                       # Environment variables
-│── FarmConnect/
-│   ├── app.py                  # FarmConnect module (community + market)
-│   ├── static/                 # CSS, JS, images
-│   └── templates/              # HTML templates
-│── crop1/crop/
-│   ├── app.py                  # Crop disease detection app
-│   ├── community.db            # SQLite database (community posts)
-│   ├── model/
-│   │   └── plant_disease_model.h5   # Trained ML model
-│   ├── templates/              # UI for disease detection & posts
-│   └── uploads/                # Uploaded leaf images
-│── LICENSE
+
+AgriTech/
+│
+├── app.py
+├── LICENSE
+├── README.md
+│
+├── crop1/
+│   └── crop/
+│       ├── app.py
+│       ├── community.db
+│       ├── requirements.txt
+│       ├── model/
+│       │   └── plant_disease_model.h5
+│       ├── templates/
+│       │   ├── community.html
+│       │   ├── index.html
+│       │   ├── new_post.html
+│       │   └── post_detail.html
+│       └── uploads/
+│           ├── Bharatiya Antariksh Hackathon 2025 Idea Submission PPT[1].pptx
+│           ├── cknpic.jpg
+│           ├── corn.jpeg
+│           ├── crn.jpg
+│           ├── PLACEMENT POSTER.png
+│           ├── potato.jpeg
+│           ├── pto.jpg
+│           ├── tmt.jpg
+│           ├── toamto1.jpeg
+│           ├── tomato.jpeg
+│
+├── FarmConnect/
+│   ├── app.py
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── main.js
+│   └── templates/
+│       ├── base.html
+│       ├── index.html
+│       ├── markets.html
+│       ├── ngo_detail.html
+│       ├── ngos.html
+│       └── upload.html
+│
+├── gobar-gas-app/
+│   ├── app.js
+│   ├── index.html
+│   ├── manifest.json
+│   ├── styles.css
+│   ├── sw.js
+│   ├── assets/
+│   └── translations/
+│       └── en.json
+│
+├── hydro/
+│   ├── app.py
+│   ├── hydro_utils.py
+│   ├── __pycache__/
+│   │   └── hydro_utils.cpython-310.pyc
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── app.js
+│   └── templates/
+│       ├── base.html
+│       ├── hydro_info.html
+│       ├── hydro_nutrients.html
+│       ├── hydro_recommend.html
+│       └── hydro_setup.html
+│
+├── static/
+│   ├── gobar_app.js
+│   ├── gobar_styles.css
+│   ├── main-home.css
+│   ├── main-home.js
+│   ├── assets/
+│   │   ├── co2.jpg
+│   │   ├── cropdes.jpg
+│   │   ├── croptest.jpg
+│   │   ├── f2f.jpg
+│   │   ├── facebook.jpg
+│   │   ├── Farmer.jpg
+│   │   ├── Foodsafety.jpg
+│   │   ├── gettyimages-1340420992-640_adpp.mp4
+│   │   ├── gobar.jpg
+│   │   ├── hydrophonics.jpg
+│   │   ├── instagram.jpg
+│   │   ├── logo.jpg
+│   │   ├── weather.jpg
+│   │   ├── X.jpg
+│   │   ├── Youtube.jpg
+│   ├── farmconnect_static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── main.js
+│   └── hydro_static/
+│       ├── css/
+│       │   └── style.css
+│       └── js/
+│           └── app.js
+│
+├── templates/
+│   ├── gobar_index.html
+│   ├── main-home.html
+│   ├── crop_templates/
+│   │   ├── community.html
+│   │   ├── index.html
+│   │   ├── new_post.html
+│   │   └── post_detail.html
+│   ├── farmconnect_templates/
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── markets.html
+│   │   ├── ngo_detail.html
+│   │   ├── ngos.html
+│   │   └── upload.html
+│   ├── hydro_templates/
+│   │   ├── base.html
+│   │   ├── hydro_info.html
+│   │   ├── hydro_nutrients.html
+│   │   ├── hydro_recommend.html
+│   │   └── hydro_setup.html
+│   └── weather_templates/
+│       ├── base.html
+│       ├── index.html
+│       └── results.html
+│
+└── weather/
+    ├── app.py
+    ├── README.md
+    ├── requirements.txt
+    ├── setup.py
+    ├── __pycache__/
+    │   └── app.cpython-313.pyc
+    └── templates/
+        ├── base.html
+        ├── index.html
+        └── results.html
 
 🛠️ Installation & Setup
 1. Clone the Repository
