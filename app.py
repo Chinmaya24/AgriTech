@@ -625,6 +625,49 @@ def market():
         return jsonify(data)
     return render_template('price_templates/market.html')
 
+@app.route("/animal-husbandry")
+def animal_husbandry():
+    return render_template("animal_index.html")
+
+@app.route("/animal_husbandary_pages/dairy.html")
+def dairy_farming():
+    return render_template("animal_husbandary_pages/dairy.html")
+
+@app.route("/animal_husbandary_pages/poultry.html")
+def poultry_farming():
+    return render_template("animal_husbandary_pages/poultry.html")
+
+@app.route("/animal_husbandary_pages/pisciculture.html")
+def pisciculture():
+    return render_template("animal_husbandary_pages/pisciculture.html")
+
+@app.route("/animal_husbandary_pages/apiculture.html")
+def apiculture():
+    return render_template("animal_husbandary_pages/apiculture.html")
+
+@app.route("/animal_husbandary_pages/sericulture.html")
+def sericulture():
+    return render_template("animal_husbandary_pages/sericulture.html")
+
+@app.route("/animal_husbandary_pages/breed.html")
+def breed_detail():
+    return render_template("animal_husbandary_pages/breed.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/index")
+def index():
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

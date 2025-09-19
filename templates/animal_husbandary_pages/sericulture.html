@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sericulture • Animal Farming Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='animal_husbandary_static/style.css') }}" />
+  </head>
+  <body class="theme-sericulture">
+    <div class="bg-illustration"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="{{ url_for('animal_husbandry') }}">
+          <span class="logo" aria-hidden="true">🪲</span>
+          <span class="brand-text">Animal Farming Guide</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="{{ url_for('animal_husbandry') }}">Home</a>
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle" aria-expanded="false">Farming Types ▾</button>
+            <div class="dropdown-menu" role="menu">
+              <a role="menuitem" href="dairy.html">Dairy Farming</a>
+              <a role="menuitem" href="poultry.html">Poultry Farming</a>
+              <a role="menuitem" href="pisciculture.html">Pisciculture</a>
+              <a role="menuitem" href="apiculture.html">Apiculture</a>
+              <a role="menuitem" href="sericulture.html">Sericulture</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <a class="pill-back" href="{{ url_for('animal_husbandry') }}" aria-label="Back to homepage">⟵ Back</a>
+      <div class="banner" style="background-image:url('https://i.pinimg.com/1200x/72/8d/72/728d72f3357a696894fbc7ea93066a0c.jpg');"></div>
+      <section class="hero-mini">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cocoon icon">
+            <ellipse cx="32" cy="32" rx="16" ry="22" fill="#fef3c7" stroke="#7b5e57" stroke-width="2"/>
+            <path d="M20 26h24M20 32h24M20 38h24" stroke="#eab308" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Sericulture (Silkworm Rearing)</h1>
+          <p class="subtitle">Grow mulberry, rear silkworms carefully, and harvest quality cocoons.</p>
+        </div>
+      </section>
+
+      <section class="content" data-page="sericulture">
+        <div>
+          <h2>Overview</h2>
+          <p class="intro">Sericulture means growing mulberry and rearing silkworms to make silk. Keep rooms clean, feed fresh leaves, and manage heat and humidity carefully.</p>
+        </div>
+        <div>
+          <h2>Key Practices</h2>
+          <ul class="list">
+            <li>Maintain ideal temperature and humidity in rearing houses.</li>
+            <li>Feed fresh, pesticide-free mulberry leaves at stages.</li>
+            <li>Keep trays and rooms clean to prevent diseases.</li>
+            <li>Provide proper mountages for cocoon formation.</li>
+            <li>Grade and dry cocoons carefully after harvest.</li>
+          </ul>
+        </div>
+        <div class="breed-section">
+          <h2>Common Breeds in India</h2>
+          <div class="breed-controls">
+            <select class="breed-select" aria-label="Select silkworm breed"></select>
+            <button class="breed-grid-button" type="button">Browse as Grid</button>
+          </div>
+          <div class="breed-grid" hidden></div>
+          <div class="breed-details" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><small>© <span id="year"></span> Animal Farming Guide</small></div></footer>
+    <script src="{{ url_for('static', filename='animal_husbandary_static/script.js') }}"></script>
+  </body>
+  </html>
+

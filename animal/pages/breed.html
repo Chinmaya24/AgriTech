@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Breed Details • Animal Farming Guide</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="bg-illustration"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <span class="logo" aria-hidden="true">🐄</span>
+          <span class="brand-text">Animal Farming Guide</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle" aria-expanded="false">Farming Types ▾</button>
+            <div class="dropdown-menu" role="menu">
+              <a role="menuitem" href="dairy.html">Dairy Farming</a>
+              <a role="menuitem" href="poultry.html">Poultry Farming</a>
+              <a role="menuitem" href="pisciculture.html">Pisciculture</a>
+              <a role="menuitem" href="apiculture.html">Apiculture</a>
+              <a role="menuitem" href="sericulture.html">Sericulture</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a> › <a id="crumb-type" href="#">Farming</a> › <span id="crumb-breed">Breed</span>
+      </nav>
+      <div class="breed-header-bar">
+        <a class="pill-back" id="breed-back" href="../index.html" aria-label="Back to farming type">⟵ Back</a>
+        <h1 id="breed-title" class="breed-title">Breed</h1>
+      </div>
+
+      <section class="breed-hero">
+        <img id="breed-img-large" class="breed-hero-img" src="" alt="Breed image" />
+      </section>
+
+      <section class="content" data-page="breed">
+        <div class="breed-details" id="breed-sections"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><small>© <span id="year"></span> Animal Farming Guide</small></div></footer>
+    <script src="../script.js"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poultry Farming • Animal Farming Guide</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body class="theme-poultry">
+    <div class="bg-illustration"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <span class="logo" aria-hidden="true">🐔</span>
+          <span class="brand-text">Animal Farming Guide</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle" aria-expanded="false">Farming Types ▾</button>
+            <div class="dropdown-menu" role="menu">
+              <a role="menuitem" href="dairy.html">Dairy Farming</a>
+              <a role="menuitem" href="poultry.html">Poultry Farming</a>
+              <a role="menuitem" href="pisciculture.html">Pisciculture</a>
+              <a role="menuitem" href="apiculture.html">Apiculture</a>
+              <a role="menuitem" href="sericulture.html">Sericulture</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <a class="pill-back" href="../index.html" aria-label="Back to homepage">⟵ Back</a>
+      <div class="banner" style="background-image:url(&quot;https://i.pinimg.com/736x/9b/9b/11/9b9b11372a2b994d474ae31f156add2a.jpg&quot;)"></div>
+      <section class="hero-mini">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chicken icon">
+            <circle cx="38" cy="26" r="10" fill="#fde68a" stroke="#7b5e57" stroke-width="2"/>
+            <ellipse cx="28" cy="36" rx="16" ry="12" fill="#fef3c7" stroke="#7b5e57" stroke-width="2"/>
+            <circle cx="42" cy="24" r="2" fill="#111827"/>
+            <polygon points="48,26 54,28 48,30" fill="#ef4444"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Poultry Farming</h1>
+          <p class="subtitle">Efficient housing, balanced feed, and strict biosecurity for healthy flocks.</p>
+        </div>
+      </section>
+
+      <section class="content" data-page="poultry">
+        <div>
+          <h2>Overview</h2>
+          <p class="intro">Poultry farming means raising chickens for eggs or meat. Keep sheds clean, give good feed and water, and protect birds from diseases for better profits.</p>
+        </div>
+        <div>
+          <h2>Key Practices</h2>
+          <ul class="list">
+            <li>Maintain optimal temperature and ventilation in sheds.</li>
+            <li>Provide clean water and balanced commercial feed.</li>
+            <li>Follow vaccination schedule; limit visitors (biosecurity).</li>
+            <li>Keep litter dry and manage ammonia levels.</li>
+            <li>Segregate age groups; implement all-in/all-out systems.</li>
+          </ul>
+        </div>
+        <div class="breed-section">
+          <h2>Common Breeds in India</h2>
+          <div class="breed-controls">
+            <select class="breed-select" aria-label="Select poultry breed"></select>
+            <button class="breed-grid-button" type="button">Browse as Grid</button>
+          </div>
+          <div class="breed-grid" hidden></div>
+          <div class="breed-details" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><small>© <span id="year"></span> Animal Farming Guide</small></div></footer>
+    <script src="../script.js"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Breed Details • Animal Farming Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='animal_husbandary_static/style.css') }}" />
+  </head>
+  <body>
+    <div class="bg-illustration"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="{{ url_for('animal_husbandry') }}">
+          <span class="logo" aria-hidden="true">🐄</span>
+          <span class="brand-text">Animal Farming Guide</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="{{ url_for('animal_husbandry') }}">Home</a>
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle" aria-expanded="false">Farming Types ▾</button>
+            <div class="dropdown-menu" role="menu">
+              <a role="menuitem" href="{{ url_for('dairy_farming') }}">Dairy Farming</a>
+              <a role="menuitem" href="{{ url_for('poultry_farming') }}">Poultry Farming</a>
+              <a role="menuitem" href="{{ url_for('pisciculture') }}">Pisciculture</a>
+              <a role="menuitem" href="{{ url_for('apiculture') }}">Apiculture</a>
+              <a role="menuitem" href="{{ url_for('sericulture') }}">Sericulture</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="{{ url_for('animal_husbandry') }}">Home</a> › <a id="crumb-type" href="#">Farming</a> › <span id="crumb-breed">Breed</span>
+      </nav>
+      <div class="breed-header-bar">
+        <a class="pill-back" id="breed-back" href="{{ url_for('animal_husbandry') }}" aria-label="Back to farming type">⟵ Back</a>
+        <h1 id="breed-title" class="breed-title">Breed</h1>
+      </div>
+
+      <section class="breed-hero">
+        <img id="breed-img-large" class="breed-hero-img" src="" alt="Breed image" />
+      </section>
+
+      <section class="content" data-page="breed">
+        <div class="breed-details" id="breed-sections"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><small>© <span id="year"></span> Animal Farming Guide</small></div></footer>
+      <script src="{{ url_for('static', filename='animal_husbandary_static/script.js') }}"></script>
+  </body>
+  </html>
+

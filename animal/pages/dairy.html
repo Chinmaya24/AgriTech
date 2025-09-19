@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dairy Farming • Animal Farming Guide</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body class="theme-dairy">
+    <div class="bg-illustration"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <span class="logo" aria-hidden="true">🐄</span>
+          <span class="brand-text">Animal Farming Guide</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle" aria-expanded="false">Farming Types ▾</button>
+            <div class="dropdown-menu" role="menu">
+              <a role="menuitem" href="dairy.html">Dairy Farming</a>
+              <a role="menuitem" href="poultry.html">Poultry Farming</a>
+              <a role="menuitem" href="pisciculture.html">Pisciculture</a>
+              <a role="menuitem" href="apiculture.html">Apiculture</a>
+              <a role="menuitem" href="sericulture.html">Sericulture</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <a class="pill-back" href="../index.html" aria-label="Back to homepage">⟵ Back</a>
+      <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1600&auto=format&fit=crop');" role="img" aria-label="Cows grazing in a green field"></div>
+
+      <section class="hero-mini">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Milk can icon">
+            <rect x="20" y="12" width="24" height="40" rx="6" fill="#fff" stroke="#7b5e57" stroke-width="2"/>
+            <rect x="22" y="18" width="20" height="8" rx="2" fill="#fde68a"/>
+            <rect x="24" y="8" width="16" height="6" rx="2" fill="#a3a3a3"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Dairy Farming</h1>
+          <p class="subtitle">Healthy cows, quality feed, and hygienic milking practices for top yields.</p>
+        </div>
+      </section>
+
+      <section class="content" data-page="dairy">
+        <div>
+          <h2>Overview</h2>
+          <p class="intro">Dairy farming means keeping cows or buffaloes healthy and stress-free so they give good milk. Clean sheds, proper feed, and neat milking help farmers earn better.</p>
+        </div>
+        <div>
+          <h2>Key Practices</h2>
+          <ul class="list">
+            <li>Balanced ration with adequate energy, protein, and minerals.</li>
+            <li>Clean housing with proper bedding and ventilation.</li>
+            <li>Routine health checks, vaccinations, and deworming.</li>
+            <li>Milking hygiene: clean teats, sanitized equipment, quick cooling.</li>
+            <li>Record-keeping for yield, breeding, and health events.</li>
+          </ul>
+        </div>
+        <div class="breed-section">
+          <h2>Common Breeds in India</h2>
+          <div class="breed-controls">
+            <select class="breed-select" aria-label="Select dairy breed"></select>
+            <button class="breed-grid-button" type="button">Browse as Grid</button>
+          </div>
+          <div class="breed-grid" hidden></div>
+          <div class="breed-details" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><small>© <span id="year"></span> Animal Farming Guide</small></div></footer>
+    <script src="../script.js"></script>
+  </body>
+  </html>
+
