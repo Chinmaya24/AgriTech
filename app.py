@@ -153,7 +153,7 @@ def post_detail(post_id):
             db.execute('INSERT INTO comments (post_id, content) VALUES (?, ?)', (post_id, comment))
             db.commit()
     comments = db.execute('SELECT content FROM comments WHERE post_id = ? ORDER BY id ASC', (post_id,)).fetchall()
-    return render_template('post_detail.html', post=post, comments=comments)
+    return render_template('crop_templates/post_detail.html', post=post, comments=comments)
 
 # --- Food Security/NGO/Markets (from FarmConnect/app.py) ---
 submissions = []
