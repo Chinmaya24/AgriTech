@@ -136,7 +136,8 @@ def new_post():
         db.execute('INSERT INTO posts (disease, title, content) VALUES (?, ?, ?)', (disease, title, content))
         db.commit()
         return redirect(url_for('community'))
-    return render_template('new_post.html')
+    return render_template('crop_templates/new_post.html')
+
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post_detail(post_id):

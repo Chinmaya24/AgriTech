@@ -19,7 +19,8 @@
         heroTitle: "What is Gobar Gas?",
         heroDesc: "Gobar gas is biogas produced from cattle dung and organic waste. It is a renewable energy source for sustainable farming.",
         learnMore: "Learn More",
-        videoLabel: "Watch: Gobar Gas Explained"
+        videoLabel: "Watch: Gobar Gas Explained",
+        videoLink: "static\assets\gettyimages-1340420992-640_adpp.mp4"
       },
       about: "AgriAI+ is a farmer-first platform for sustainable agriculture and renewable energy.",
       contact: "Contact us at support@agriai.com or call 1800-AGRI-AI.",
@@ -48,8 +49,8 @@
       knowledge: {
         title: "Knowledge Hub",
         articles: [
-          {title: "Benefits of Gobar Gas", text: "Gobar gas reduces fossil fuel use and improves soil health.", video: "https://www.youtube.com/embed/VIDEO_ID1"},
-          {title: "Composting Techniques", text: "Learn how to compost organic waste for better yields.", video: "https://www.youtube.com/embed/VIDEO_ID2"},
+          {title: "Benefits of Gobar Gas", text: "Gobar gas reduces fossil fuel use and improves soil health.", video: "static/assets/gettyimages-1340420992-640_adpp.mp4"},
+          {title: "Composting Techniques", text: "Learn how to compost organic waste for better yields.", video: "static/assets/gettyimages-1340420992-640_adpp.mp4"},
           {title: "Water Conservation", text: "Tips for saving water in agriculture.", video: ""}
         ]
       },
