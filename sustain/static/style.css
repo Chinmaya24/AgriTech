@@ -1,0 +1,110 @@
+/* Reset & basic */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #2e7d32;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: #388e3c;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.form-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.dropdown-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #43a047;
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+/* Button */
+.submit-btn {
+    background: #43a047;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #2e7d32;
+    transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+    color: #1b5e20;
+}
+
+.card h3 {
+    color: #388e3c;
+    margin-top: 10px;
+}
+
+.fertilizer {
+    border-left: 6px solid #66bb6a;
+}
+
+.pesticide {
+    border-left: 6px solid #ff7043;
+}
+
+/* Responsive */
+@media(max-width: 600px){
+    .form-container, .card {
+        padding: 15px;
+    }
+}

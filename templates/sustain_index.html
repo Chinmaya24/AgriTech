@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Farmer Organic Advisor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sustain_static/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🌾 Farmer Organic Advisor</h1>
+        <p class="subtitle">Select the chemical inputs, get organic alternatives, and see benefits instantly!</p>
+
+        <form method="POST" class="form-container">
+            <div class="dropdown-group">
+                <label>1️⃣ Fertilizer:</label>
+                <select name="fertilizer">
+                    <option disabled selected>-- Select Fertilizer --</option>
+                    {% for item in fertilizers %}
+                    <option value="{{ item }}" {% if selected_fertilizer == item %}selected{% endif %}>
+                        {{ item | capitalize }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="dropdown-group">
+                <label>2️⃣ Pesticide/Insecticide:</label>
+                <select name="pesticide">
+                    <option disabled selected>-- Select Pesticide --</option>
+                    {% for item in pesticides %}
+                    <option value="{{ item }}" {% if selected_pesticide == item %}selected{% endif %}>
+                        {{ item | capitalize }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">🌿 Get Organic Advice</button>
+        </form>
+
+        {% if fert_suggestion %}
+        <div class="card fertilizer">
+            <h2>💡 Fertilizer Alternative</h2>
+            <p><strong>{{ fert_suggestion['alternative'] }}</strong></p>
+            <h3>🌍 Benefits</h3>
+            <p>{{ fert_suggestion['benefits'] }}</p>
+            <h3>📈 Impact</h3>
+            <p>{{ fert_suggestion['impact'] }}</p>
+        </div>
+        {% endif %}
+
+        {% if pest_suggestion %}
+        <div class="card pesticide">
+            <h2>💡 Pesticide Alternative</h2>
+            <p><strong>{{ pest_suggestion['alternative'] }}</strong></p>
+            <h3>🌍 Benefits</h3>
+            <p>{{ pest_suggestion['benefits'] }}</p>
+            <h3>📈 Impact</h3>
+            <p>{{ pest_suggestion['impact'] }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
