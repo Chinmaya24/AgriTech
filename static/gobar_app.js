@@ -50,7 +50,7 @@
         title: "Knowledge Hub",
         articles: [
           {title: "Benefits of Gobar Gas", text: "Gobar gas reduces fossil fuel use and improves soil health.", video: "static/assets/gettyimages-1340420992-640_adpp.mp4"},
-          {title: "Composting Techniques", text: "Learn how to compost organic waste for better yields.", video: "static/assets/gettyimages-1340420992-640_adpp.mp4"},
+          {title: "Composting Techniques", text: "Learn how to compost organic waste for better yields.", video: "static/assets/composting.mp4"},
           {title: "Water Conservation", text: "Tips for saving water in agriculture.", video: ""}
         ]
       },
@@ -207,7 +207,7 @@
       </section>
       <div class="video-section">
         <h3>${t.videoLabel}</h3>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/5K7FhFz_xS4" frameborder="0" allowfullscreen></iframe>
+        
       </div>
       <h2>${translations[currentLang].dashboard.title}</h2>
       <div class="dashboard-grid">
