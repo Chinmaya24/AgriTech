@@ -14,18 +14,23 @@ def index():
         selected_fertilizer = request.form.get("fertilizer")
         selected_pesticide = request.form.get("pesticide")
 
+        # If user selected a fertilizer, fetch suggestion
         if selected_fertilizer:
             fert_suggestion = suggest_fertilizer(selected_fertilizer)
+
+        # If user selected a pesticide, fetch suggestion
         if selected_pesticide:
             pest_suggestion = suggest_pesticide(selected_pesticide)
 
-    return render_template("index.html",
-                           fertilizers=list(fertilizers.keys()),
-                           pesticides=list(pesticides.keys()),
-                           fert_suggestion=fert_suggestion,
-                           pest_suggestion=pest_suggestion,
-                           selected_fertilizer=selected_fertilizer,
-                           selected_pesticide=selected_pesticide)
+    return render_template(
+        "index.html",
+        fertilizers=list(fertilizers.keys()),
+        pesticides=list(pesticides.keys()),
+        fert_suggestion=fert_suggestion,
+        pest_suggestion=pest_suggestion,
+        selected_fertilizer=selected_fertilizer,
+        selected_pesticide=selected_pesticide
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
