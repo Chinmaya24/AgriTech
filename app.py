@@ -154,8 +154,110 @@ def post_detail(post_id):
 
 # --- Food Security/NGO/Markets (from FarmConnect/app.py) ---
 submissions = []
-NGO_DATA = { ... } # Use the full dict from FarmConnect/app.py
-MARKETS_DATA = [ ... ] # Use the full list from FarmConnect/app.py
+NGO_DATA = {
+    "save-the-humanity": {
+        "slug": "save-the-humanity",
+        "name": "Save The Humanity Foundation",
+        "image": "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80&auto=format&fit=crop",
+        "short": "Working on hunger relief and food security through meal distribution.",
+        "description": "Save The Humanity Foundation focuses on providing nutritious meals to underprivileged communities and supporting food security initiatives across India.",
+        "stats": {
+            "meals_distributed": 500000,
+            "communities_served": 150,
+            "volunteers": 1200
+        },
+        "needs": "Raw materials for meal preparation, cooking equipment, and transportation support.",
+        "website": "https://www.savethehumanity.org.in/",
+        "donate_url": "https://www.savethehumanity.org.in/raw-material-meal-distribution/"
+    },
+    "akshaya-patra": {
+        "slug": "akshaya-patra",
+        "name": "Akshaya Patra Foundation",
+        "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&auto=format&fit=crop",
+        "short": "Working on hunger relief and food security through school meal programs.",
+        "description": "Akshaya Patra Foundation runs the world's largest NGO-run school lunch program, serving millions of children daily across India.",
+        "stats": {
+            "children_served": 1800000,
+            "schools": 19000,
+            "meals_per_day": 1800000
+        },
+        "needs": "Grocery kits, dry rations, and kitchen equipment for meal preparation.",
+        "website": "https://www.akshayapatra.org/",
+        "donate_url": "https://www.akshayapatra.org/photo-gallery/grocery-kit-distribution-during-2nd-wave-of-covid"
+    },
+    "aapke-saath": {
+        "slug": "aapke-saath",
+        "name": "Aapke Saath Foundation",
+        "image": "https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&q=80&auto=format&fit=crop",
+        "short": "Working on hunger relief and food security through dry ration distribution.",
+        "description": "Aapke Saath Foundation provides monthly dry ration kits to families in need, ensuring food security for vulnerable communities.",
+        "stats": {
+            "families_served": 25000,
+            "ration_kits_distributed": 300000,
+            "cities_covered": 25
+        },
+        "needs": "Dry rations, rice, wheat, pulses, and essential food items.",
+        "website": "https://asf.org.in/",
+        "donate_url": "https://asf.org.in/monthly-dry-ration-kit-distribution-campaign-drive/"
+    },
+    "india-foodbanking": {
+        "slug": "india-foodbanking",
+        "name": "India FoodBanking Network",
+        "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&q=80&auto=format&fit=crop",
+        "short": "Working on hunger relief and food security through food banking network.",
+        "description": "India FoodBanking Network creates a sustainable food banking ecosystem to reduce hunger and food waste across India.",
+        "stats": {
+            "food_banks": 45,
+            "meals_distributed": 2000000,
+            "partner_ngos": 200
+        },
+        "needs": "Food donations, cold storage facilities, and logistics support.",
+        "website": "https://www.indiafoodbanking.org/",
+        "donate_url": "https://www.indiafoodbanking.org/foodbanking/"
+    }
+} # Use the full dict from FarmConnect/app.py
+MARKETS_DATA = [
+    {
+        "market_name": "Bangalore Market",
+        "location": "Bangalore",
+        "produce": "Tomatoes",
+        "quantity": "5 KG",
+        "contact_primary": "+91 98748 23458",
+        "contact_full": "+91 98748 23458, buyer@bangalore-market.com",
+    },
+    {
+        "market_name": "FreshHub Market",
+        "location": "Mumbai",
+        "produce": "Potatoes",
+        "quantity": "2 KG",
+        "contact_primary": "+91 93245 67890",
+        "contact_full": "+91 93245 67890, orders@mumbai-market.com",
+    },
+    {
+        "market_name": "GreenCart Aggregators",
+        "location": "Chennai",
+        "produce": "Onions",
+        "quantity": "800 KG",
+        "contact_primary": "+91 99876 54321",
+        "contact_full": "+91 99876 54321, procurement@chennai-market.com",
+    },
+    {
+        "market_name": "MarketLink Traders",
+        "location": "Delhi",
+        "produce": "Bananas",
+        "quantity": "120 KG",
+        "contact_primary": "+91 98765 43210",
+        "contact_full": "+91 98765 43210, trade@delhi-market.com",
+    },
+    {
+        "market_name": "AgroServe Mart",
+        "location": "Kolkata",
+        "produce": "Mangoes",
+        "quantity": "600 KG",
+        "contact_primary": "+91 93987 65432",
+        "contact_full": "+91 93987 65432, mango@kolkata-market.com",
+    },
+] # Use the full list from FarmConnect/app.py
 
 @app.route("/food-security")
 def food_security_home():
@@ -180,23 +282,23 @@ def upload():
                 "location": location,
             })
             success_message = "Submission received successfully."
-    return render_template("FarmConnect/upload.html", success_message=success_message, submissions=submissions)
+    return render_template("farmconnect_templates/upload.html", success_message=success_message, submissions=submissions)
 
 @app.route("/markets")
 def markets():
-    return render_template("FarmConnect/markets.html", markets=MARKETS_DATA)
+    return render_template("farmconnect_templates/markets.html", markets=MARKETS_DATA)
 
 @app.route("/ngos")
 def ngos():
     ngos_list = list(NGO_DATA.values())
-    return render_template("FarmConnect/ngos.html", ngos=ngos_list)
+    return render_template("farmconnect_templates/ngos.html", ngos=ngos_list)
 
 @app.route("/ngos/<slug>")
 def ngo_detail(slug: str):
     ngo = NGO_DATA.get(slug)
     if not ngo:
         abort(404)
-    return render_template("FarmConnect/ngo_detail.html", ngo=ngo)
+    return render_template("farmconnect_templates/ngo_detail.html", ngo=ngo)
 
 # --- Hydroponics (from hydro/app.py) ---
 @app.route("/hydro")

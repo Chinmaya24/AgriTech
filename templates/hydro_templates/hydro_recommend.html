@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends "hydro_templates/base.html" %}
 {% block content %}
 <h2>🌱 Hydroponics Recommendation Tool</h2>
 <p class="intro-text">Get personalized hydroponic system recommendations based on your crop, space, budget, and lighting conditions.</p>
 
-<form method="post" action="{{ url_for('recommend') }}" class="hydro-form">
+<form method="post" action="{{ url_for('hydro_recommend') }}" class="hydro-form">
   <div class="form-group">
     <label for="crop">🌾 Select Crop</label>
     <select id="crop" name="crop" required>
