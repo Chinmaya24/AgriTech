@@ -341,28 +341,21 @@ def home():
 
 @app.route("/weather", methods=["GET", "POST"])
 def weather_home():
-    city = None
-    error = None
-    weather_data = None
     if request.method == "POST":
-        city = request.form.get("city", "").strip()
-        if not city:
-            error = "Please enter a city name."
+        location = request.form.get("location", "").strip()
+        if location:
+            # Store location in session or pass it properly
+            return weather_results_with_location(location)
         else:
-            import requests
-            import os
-            api_key = os.environ.get("WEATHERAPI_KEY")
-            if not api_key:
-                error = "Weather API key not set."
-            else:
-                url = f"https://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
-                try:
-                    resp = requests.get(url)
-                    resp.raise_for_status()
-                    weather_data = resp.json()
-                except Exception as e:
-                    error = f"Could not fetch weather: {e}"
-    return render_template("weather_templates/index.html", city=city, error=error, weather=weather_data)
+            error = "Please enter a city name."
+            return render_template("weather_templates/index.html", error=error)
+    
+    return render_template("weather_templates/index.html")
+
+def weather_results_with_location(location):
+    # Your existing weather_results logic here, but accept location as parameter
+    # ... (use the code I provided earlier)
+    pass
 
 @app.route("/results", methods=["POST"])
 def weather_results():
@@ -373,7 +366,6 @@ def weather_results():
     error = None
 
     # Fetch weather data from WeatherAPI
-    import requests, os
     api_key = os.environ.get("WEATHERAPI_KEY")
     if not api_key:
         error = "Weather API key not set."
@@ -383,13 +375,185 @@ def weather_results():
             resp = requests.get(url)
             resp.raise_for_status()
             data = resp.json()
-            # Example: extract 3-day forecast
-            forecast = data.get("forecast", {}).get("forecastday", [])
-            # TODO: Add your disease risk analysis logic here
-            # diseases = ...
-            # precautions = ...
+            
+            # Format forecast data for template
+            forecast_days = data.get("forecast", {}).get("forecastday", [])
+            for day in forecast_days:
+                date_obj = datetime.strptime(day["date"], "%Y-%m-%d")
+                forecast.append({
+                    "day_name": date_obj.strftime("%A"),
+                    "date": date_obj.strftime("%B %d, %Y"),
+                    "temp": int(day["day"]["avgtemp_c"]),
+                    "humidity": day["day"]["avghumidity"],
+                    "rain": day["day"]["totalprecip_mm"],
+                    "description": day["day"]["condition"]["text"]
+                })
+            
+            # Enhanced disease analysis based on weather conditions
+            diseases = []
+            for i, day in enumerate(forecast_days):
+                date_obj = datetime.strptime(day["date"], "%Y-%m-%d")
+                conditions = []
+                
+                temp = day["day"]["avgtemp_c"]
+                humidity = day["day"]["avghumidity"]
+                rain = day["day"]["totalprecip_mm"]
+                min_temp = day["day"]["mintemp_c"]
+                max_temp = day["day"]["maxtemp_c"]
+                
+                # Multiple disease conditions based on different weather patterns
+                
+                # 1. Fungal Diseases (High humidity conditions)
+                if humidity > 80:
+                    if 15 <= temp <= 25:
+                        conditions.append({
+                            "name": "Late Blight (Potato/Tomato)",
+                            "risk": "High",
+                            "description": f"High humidity ({humidity}%) + cool temps ({temp}°C) favor late blight."
+                        })
+                    elif 25 <= temp <= 35:
+                        conditions.append({
+                            "name": "Powdery Mildew",
+                            "risk": "High",
+                            "description": f"High humidity ({humidity}%) + warm temps ({temp}°C) favor powdery mildew."
+                        })
+                elif 60 <= humidity <= 80:
+                    conditions.append({
+                        "name": "Leaf Spot Diseases",
+                        "risk": "Medium",
+                        "description": f"Moderate humidity ({humidity}%) may cause leaf spots."
+                    })
+                
+                # 2. Bacterial Diseases (Rain + warmth)
+                if rain > 2 and temp > 20:
+                    conditions.append({
+                        "name": "Bacterial Wilt",
+                        "risk": "High",
+                        "description": f"Rain ({rain}mm) + warm temps ({temp}°C) spread bacterial diseases."
+                    })
+                elif rain > 0.5:
+                    conditions.append({
+                        "name": "Bacterial Leaf Spot",
+                        "risk": "Medium",
+                        "description": f"Light rain ({rain}mm) can cause bacterial infections."
+                    })
+                
+                # 3. Temperature-related issues
+                if max_temp > 35:
+                    conditions.append({
+                        "name": "Heat Stress",
+                        "risk": "High",
+                        "description": f"High temperature ({max_temp}°C) causes heat stress in crops."
+                    })
+                elif min_temp < 5:
+                    conditions.append({
+                        "name": "Frost Damage",
+                        "risk": "High",
+                        "description": f"Low temperature ({min_temp}°C) risk of frost damage."
+                    })
+                elif min_temp < 10:
+                    conditions.append({
+                        "name": "Cold Stress",
+                        "risk": "Medium",
+                        "description": f"Cool morning temps ({min_temp}°C) may slow growth."
+                    })
+                
+                # 4. Pest-related (based on weather)
+                if 20 <= temp <= 30 and humidity < 60 and rain == 0:
+                    conditions.append({
+                        "name": "Aphid Infestation",
+                        "risk": "Medium",
+                        "description": f"Dry warm weather ({temp}°C, {humidity}% humidity) favors aphids."
+                    })
+                
+                # 5. Drought stress
+                if rain == 0 and humidity < 50:
+                    conditions.append({
+                        "name": "Drought Stress",
+                        "risk": "Medium",
+                        "description": f"No rain + low humidity ({humidity}%) causes water stress."
+                    })
+                
+                # If no specific conditions, add a general assessment
+                if not conditions:
+                    if humidity < 60 and 15 <= temp <= 30 and rain < 1:
+                        conditions.append({
+                            "name": "Favorable Conditions",
+                            "risk": "Low",
+                            "description": "Weather conditions are generally favorable for crop growth."
+                        })
+                
+                diseases.append({
+                    "day_name": date_obj.strftime("%A"),
+                    "date": date_obj.strftime("%B %d, %Y"),
+                    "conditions": conditions
+                })
+            
+            # Dynamic precautionary measures based on detected risks
+            precautions = []
+            
+            # Check what diseases were detected to give relevant advice
+            all_detected_diseases = []
+            for day in diseases:
+                for condition in day["conditions"]:
+                    all_detected_diseases.append(condition["name"])
+            
+            # Irrigation advice
+            irrigation_tips = ["Water early morning (6-8 AM) to reduce humidity"]
+            if "Drought Stress" in all_detected_diseases:
+                irrigation_tips.extend([
+                    "Increase irrigation frequency during dry periods",
+                    "Use mulching to retain soil moisture"
+                ])
+            if any("Bacterial" in disease for disease in all_detected_diseases):
+                irrigation_tips.extend([
+                    "Use drip irrigation to minimize leaf wetness",
+                    "Avoid overhead sprinklers during rainy periods"
+                ])
+            precautions.append({"category": "Irrigation", "tips": irrigation_tips})
+            
+            # Disease management
+            disease_tips = ["Monitor plants regularly for early symptoms"]
+            if any("Fungal" in disease or "Mildew" in disease or "Blight" in disease for disease in all_detected_diseases):
+                disease_tips.extend([
+                    "Apply neem oil spray during evening hours",
+                    "Use copper-based fungicides for severe infections",
+                    "Remove infected plant debris immediately"
+                ])
+            if any("Bacterial" in disease for disease in all_detected_diseases):
+                disease_tips.extend([
+                    "Use copper sulfate spray as prevention",
+                    "Ensure good air circulation between plants"
+                ])
+            precautions.append({"category": "Disease Management", "tips": disease_tips})
+            
+            # Temperature management
+            temp_tips = ["Maintain proper plant spacing for air circulation"]
+            if "Heat Stress" in all_detected_diseases:
+                temp_tips.extend([
+                    "Provide shade nets during extreme heat",
+                    "Increase watering frequency during hot days"
+                ])
+            if "Frost Damage" in all_detected_diseases or "Cold Stress" in all_detected_diseases:
+                temp_tips.extend([
+                    "Cover sensitive plants during cold nights",
+                    "Water plants before expected frost"
+                ])
+            precautions.append({"category": "Temperature Management", "tips": temp_tips})
+            
+            # General prevention
+            precautions.append({
+                "category": "General Prevention",
+                "tips": [
+                    "Use disease-resistant crop varieties",
+                    "Practice crop rotation annually",
+                    "Maintain field hygiene and sanitation",
+                    "Keep farming tools clean and disinfected"
+                ]
+            })
+            
         except Exception as e:
-            error = f"Could not fetch weather: {e}"
+            error = f"Could not fetch weather data: {e}"
 
     return render_template("weather_templates/results.html",
                           location=location,

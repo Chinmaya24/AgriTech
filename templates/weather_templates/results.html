@@ -18,6 +18,11 @@
 </div>
 
 <div class="container my-5">
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> {{ error }}
+    </div>
+    {% else %}
     <!-- Weather Forecast Section -->
     <div class="row mb-5">
         <div class="col-12">
@@ -144,7 +149,7 @@
     <!-- Action Buttons -->
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <a href="{{ url_for('home') }}" class="btn btn-primary btn-lg me-3">
+            <a href="{{ url_for('weather_home') }}" class="btn btn-primary btn-lg me-3">
                 <i class="bi bi-arrow-left"></i> Check Another Location
             </a>
             <button class="btn btn-outline-secondary btn-lg" onclick="window.print()">
@@ -152,6 +157,7 @@
             </button>
         </div>
     </div>
+    {% endif %}
 </div>
 
 <!-- Print Styles -->
@@ -169,20 +175,4 @@
     }
 }
 </style>
-{% if error %}
-  <p>{{ error }}</p>
-{% else %}
-  <h2>Weather Forecast for {{ location }}</h2>
-  {% for day in forecast %}
-    <p>{{ day.date }}: {{ day.day.condition.text }}, {{ day.day.avgtemp_c }}°C</p>
-  {% endfor %}
-  <h3>Disease Risk Analysis</h3>
-  {% for disease in diseases %}
-    <p>{{ disease }}</p>
-  {% endfor %}
-  <h3>Farmer's Guide & Precautions</h3>
-  {% for tip in precautions %}
-    <p>{{ tip }}</p>
-  {% endfor %}
-{% endif %}
 {% endblock %}
