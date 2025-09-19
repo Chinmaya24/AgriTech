@@ -1,3 +1,4 @@
+
 🌱 Krushi Snehii
 
 Krushi Snehii is an AI-powered agriculture platform that helps farmers with early crop disease detection, community networking, and market access.
@@ -21,6 +22,8 @@ Farmers can connect with local markets and NGOs for support and selling.
 
 📂 Project Structure
 
+
+```
 AgriTech/
 │
 ├── app.py
@@ -162,6 +165,7 @@ AgriTech/
         ├── base.html
         ├── index.html
         └── results.html
+```
 
 🛠️ Installation & Setup
 1. Clone the Repository
